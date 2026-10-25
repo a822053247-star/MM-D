@@ -11,6 +11,10 @@ export const BARRAGE_RULES = {
   roundGap: .12, maxRounds: 3, targetsPerLane: 3, targetsPerCast: 72,
   decay: .8, interval: 5.5, damage: 22, radius: .23,
 } as const;
+export const AREA_FEEDBACK_LIMITS = { events: 128, duration: .28 } as const;
+export interface AreaVisualEvent {
+  active: boolean; kind: 'nova-hit' | 'barrage-hit' | 'barrage-end'; x: number; z: number; age: number; seed: number;
+}
 export type BarragePattern = 'ring' | 'fan' | 'cross';
 export interface BarrageLane {
   castId: number; active: boolean; launchAt: number; x: number; z: number;
@@ -38,6 +42,13 @@ export interface AreaHost {
 
 /** Pure simulation. Accepted casts never depend on texture loading or visual capacity. */
 export class AreaAttacks {
+  private visualEpoch = 0;
+  get epoch() { return this.visualEpoch; }
+  private feedbackSlots: AreaVisualEvent[] = Array.from({ length: AREA_FEEDBACK_LIMITS.events }, () => ({
+    active: false, kind: 'nova-hit', x: 0, z: 0, age: 0, seed: 0,
+  }));
+  readonly events: readonly Readonly<AreaVisualEvent>[] = this.feedbackSlots;
+  private feedbackIndex = 0;
   readonly novas: NovaCast[] = Array.from({ length: AREA_RULES.novaCapacity }, () => ({
     active: false, castId: 0, age: 0, detonated: false, damage: 0,
     view: { x: 0, z: 0, halfWidth: 14, halfDepth: 12 }, hits: new Set(), kills: 0,
@@ -90,6 +101,9 @@ export class AreaAttacks {
 
   update(dt: number, novaRank: number, multiplier: number, barrageRank = 0) {
     if (dt <= 0) return;
+    for (const event of this.feedbackSlots) if (event.active) {
+      event.age += dt; if (event.age >= AREA_FEEDBACK_LIMITS.duration) event.active = false;
+    }
     if (novaRank > 0) {
       this.novaClock -= dt;
       if (this.novaClock <= 0 && this.castNova(AREA_RULES.damage * multiplier * (1 + .25 * (novaRank - 1))))
@@ -116,6 +130,7 @@ export class AreaAttacks {
         for (const bossPass of [false, true]) for (const enemy of targets) {
           if ((enemy.rank === 'boss') !== bossPass || cast.hits.has(enemy.id)) continue;
           cast.hits.add(enemy.id);
+          this.record('nova-hit', enemy.x, enemy.z, enemy.id + cast.castId);
           this.host.damage(enemy, cast.damage * (enemy.rank === 'boss' ? AREA_RULES.bossMultiplier
             : enemy.rank === 'elite' ? AREA_RULES.eliteMultiplier : 1), cast.source!);
           this.telemetry.hits++;
@@ -146,22 +161,36 @@ export class AreaAttacks {
           }
           if (!nearest) break;
           cast.hits.add(nearest.id);
+          this.record('barrage-hit', lane.previousX + (lane.x - lane.previousX) * first,
+            lane.previousZ + (lane.z - lane.previousZ) * first, nearest.id + cast.castId);
           this.host.damage(nearest, cast.damage * BARRAGE_RULES.decay ** lane.hits
             * (nearest.rank === 'boss' ? AREA_RULES.bossMultiplier : nearest.rank === 'elite' ? AREA_RULES.eliteMultiplier : 1), cast.source!);
           lane.hits++; this.telemetry.hits++;
           if (nearest.hp <= 0) { cast.kills++; this.telemetry.kills++; }
         }
-        if (lane.hits >= BARRAGE_RULES.targetsPerLane || lane.age >= BARRAGE_RULES.lifetime) lane.active = false;
+        if (lane.hits >= BARRAGE_RULES.targetsPerLane || lane.age >= BARRAGE_RULES.lifetime) {
+          this.record('barrage-end', lane.x, lane.z, cast.castId); lane.active = false;
+        }
       }
       if (cast.age >= cast.duration || cast.hits.size >= BARRAGE_RULES.targetsPerCast) {
         if (cast.kills >= 8) this.host.feedback(cast.kills, false);
         cast.active = false;
-        for (const lane of this.lanes) if (lane.castId === cast.castId) { lane.castId = 0; lane.active = false; }
+        for (const lane of this.lanes) if (lane.castId === cast.castId) {
+          if (lane.active) this.record('barrage-end', lane.x, lane.z, cast.castId);
+          lane.castId = 0; lane.active = false;
+        }
       }
     }
   }
 
+  private record(kind: AreaVisualEvent['kind'], x: number, z: number, seed: number) {
+    const event = this.feedbackSlots[this.feedbackIndex];
+    this.feedbackIndex = (this.feedbackIndex + 1) % this.feedbackSlots.length;
+    Object.assign(event, { active: true, kind, x, z, age: 0, seed });
+  }
   clear() {
+    this.visualEpoch++; this.feedbackIndex = 0;
+    for (const event of this.feedbackSlots) event.active = false;
     for (const cast of this.novas) { cast.active = false; cast.hits.clear(); cast.source = undefined; }
     for (const cast of this.barrages) { cast.active = false; cast.hits.clear(); cast.source = undefined; }
     for (const lane of this.lanes) { lane.active = false; lane.castId = 0; }

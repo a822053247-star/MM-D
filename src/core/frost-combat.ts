@@ -2,23 +2,26 @@ import type { Enemy } from './combat';
 import type { RelicDamageSource } from './relics';
 import { sourceHasAttack } from './weapon-pair-fusion';
 
-export const FROST_RULES = { chillDuration: 1.6, chillSlow: .65, freeze: 1.25, eliteFreeze: .45, immunity: 2.5, effects: 48 } as const;
+export const FROST_RULES = { chillDuration: 1.6, chillSlow: .65, freeze: 1.25, eliteFreeze: .45, immunity: 2.5,
+  effects: 48, effectDuration: .4 } as const;
 export function frostStats(level: number) {
   const n = Math.max(0, Math.min(4, Math.floor(level) - 1));
   return { pierces: n >= 4 ? 2 : n >= 2 ? 1 : 0, interval: .70 - n * .02 };
 }
-interface FrostEvent { active: boolean; kind: 'impact' | 'freeze' | 'thaw' | 'resist'; x: number; z: number; age: number; seed: number }
+interface FrostEvent { active: boolean; kind: 'impact' | 'freeze' | 'thaw' | 'resist'; x: number; z: number; age: number; seed: number;
+  impactSource: 'projectile' | 'area' | 'status' }
 
 /** Enemy-owned timers survive pool reuse only until resetEnemy; no render clock controls freezing. */
 export class FrostCombat {
-  readonly events: FrostEvent[] = Array.from({ length: FROST_RULES.effects }, () => ({ active: false, kind: 'impact', x: 0, z: 0, age: 0, seed: 0 }));
+  readonly events: FrostEvent[] = Array.from({ length: FROST_RULES.effects }, () => ({ active: false, kind: 'impact', x: 0, z: 0,
+    age: 0, seed: 0, impactSource: 'status' }));
   readonly telemetry = { iceHits: 0, freezes: 0, eliteFreezes: 0, bossResists: 0, thaws: 0 };
   constructor(private enemies: () => readonly Enemy[], private onFreeze: (enemy: Enemy) => void, private sound: () => void) {}
   hit(enemy: Enemy, source: RelicDamageSource) {
     if (source.suppressRelics || source.behavior || source.kind !== 'hit' && source.kind !== 'explosion') return;
     const ice = source.attackId === 'frost-crystal', water = sourceHasAttack(source, 'bubble');
     if (!ice && !water) return;
-    if (ice) { this.telemetry.iceHits++; this.effect('impact', enemy); }
+    if (ice) { this.telemetry.iceHits++; this.effect('impact', enemy, source.kind === 'hit' ? 'projectile' : 'area'); }
     if (!enemy.active || enemy.hp <= 0 || enemy.spawnTime > 0) return;
     if (ice) enemy.chillTime = FROST_RULES.chillDuration;
     if (!(enemy.chillTime! > 0) || !(enemy.wetTime! > 0) || enemy.freezeTime! > 0 || enemy.freezeImmuneTime! > 0) return;
@@ -51,11 +54,11 @@ export class FrostCombat {
   }
   slowFactor(enemy: Enemy) { return (enemy.chillTime ?? 0) > 0 ? enemy.rank === 'boss' ? .85 : FROST_RULES.chillSlow : 1; }
   update(dt: number) {
-    for (const event of this.events) if (event.active) { event.age += dt; if (event.age >= .4) event.active = false; }
+    for (const event of this.events) if (event.active) { event.age += dt; if (event.age >= FROST_RULES.effectDuration) event.active = false; }
   }
-  private effect(kind: FrostEvent['kind'], enemy: Enemy) {
+  private effect(kind: FrostEvent['kind'], enemy: Enemy, impactSource: FrostEvent['impactSource'] = 'status') {
     const event = this.events.find(e => !e.active);
-    if (event) Object.assign(event, { active: true, kind, x: enemy.x, z: enemy.z, age: 0, seed: enemy.id });
+    if (event) Object.assign(event, { active: true, kind, x: enemy.x, z: enemy.z, age: 0, seed: enemy.id, impactSource });
   }
   resetEnemy(enemy: Enemy) { enemy.chillTime = enemy.freezeTime = enemy.freezeDuration = enemy.freezeImmuneTime = 0; }
   clear() { for (const event of this.events) event.active = false; for (const enemy of this.enemies()) this.resetEnemy(enemy); }

@@ -1,0 +1,495 @@
+{
+  "capturedDate": "2026-10-26",
+  "method": "Read-only source inventory, SHA-256 and PNG headers; no tests, typecheck, build, browser or simulator executed.",
+  "source": {
+    "root": "D:\\projects\\MonsterBonk-Mobile",
+    "head": "cdef13cdb4155c7f306bf68df6461ee95cb3cf82",
+    "initialGitStatus": []
+  },
+  "target": {
+    "root": "D:\\projects\\MM\\douyin\\MM-D",
+    "head": "16833e8490000c1e4402ad6942c7e6fea7af7346",
+    "initialGitStatus": []
+  },
+  "historicalBuild": {
+    "report": "docs/size-report.json",
+    "freshlyBuilt": false,
+    "mainBytes": 920233,
+    "mainJsBytes": 918753,
+    "firstPlayBytes": 8472146
+  },
+  "atlases": [
+    {
+      "id": "flame-sweep",
+      "path": "resources/first-play/vfx/flame-sweep.png",
+      "bytes": 25286,
+      "width": 396,
+      "height": 132,
+      "rgbaEstimateBytes": 209088,
+      "sha256": "3888c89f42a0d3093fb7012d8b126645fa30f259a1ee1188bf57ee79bf54823a"
+    },
+    {
+      "id": "ice-ring",
+      "path": "resources/vfx-ready/ice-ring.png",
+      "bytes": 36138,
+      "width": 588,
+      "height": 392,
+      "rgbaEstimateBytes": 921984,
+      "sha256": "97f11a7495f6a970d3a6f6148e7f1ac53cebe0712e5335fac89c59be411d0c86"
+    },
+    {
+      "id": "dream-dart",
+      "path": "resources/vfx-ready/dream-dart.png",
+      "bytes": 20914,
+      "width": 392,
+      "height": 326,
+      "rgbaEstimateBytes": 511168,
+      "sha256": "7fcaf254170f820e75134153b609e5e3ce38121aa91ea3d2d9bc36b44c4a494a"
+    },
+    {
+      "id": "dream-bloom",
+      "path": "resources/vfx-ready/dream-bloom.png",
+      "bytes": 53277,
+      "width": 392,
+      "height": 680,
+      "rgbaEstimateBytes": 1066240,
+      "sha256": "598c221d24d91eff4c4d607c3efbc4cbd83e343f01b96ab85b1fb5778f90be8f"
+    }
+  ],
+  "coreFiles": [
+    {
+      "path": "area-attacks.ts",
+      "targetSha256": "0ea17d77f772287bdc823b2e7d836ce601d55385ec5bfc1893a3e57454c3b905",
+      "sourceSha256": "0ea17d77f772287bdc823b2e7d836ce601d55385ec5bfc1893a3e57454c3b905",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "arena-boundary.ts",
+      "targetSha256": "d4eb770eef45030618f240cd7c29fc8b02b57fe9cd6162545f422178e4ab206e",
+      "sourceSha256": "d4eb770eef45030618f240cd7c29fc8b02b57fe9cd6162545f422178e4ab206e",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "balance.ts",
+      "targetSha256": "3acfa51b9de63067f69123d686799c4df1514f6573d164bee9b3fb7cd54ed6fe",
+      "sourceSha256": "3acfa51b9de63067f69123d686799c4df1514f6573d164bee9b3fb7cd54ed6fe",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "blade-weapons.ts",
+      "targetSha256": "dcf82b81c0a1a9c2ae8d1e69fd2b8553fdeec274ffbdf72711e556e0012fae9a",
+      "sourceSha256": "dcf82b81c0a1a9c2ae8d1e69fd2b8553fdeec274ffbdf72711e556e0012fae9a",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "boss-barrage.ts",
+      "targetSha256": "e6fec6652a75a9aedd31a1fccbce62aeccd374c680bef9bf9321a238b6d189a7",
+      "sourceSha256": "e6fec6652a75a9aedd31a1fccbce62aeccd374c680bef9bf9321a238b6d189a7",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "capture-rules.ts",
+      "targetSha256": "7fe92bfc6511be7240039aeb1391aa2b09b134f85f3c055fa76731f4985b3e69",
+      "sourceSha256": "abe1a5f667af0111a4cf6eb836c7b04d2ec20b02f3a7453fb52b3d34ec867b55",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "colored-barrage.ts",
+      "targetSha256": "d25394ea998b2930e612d14554e1c6899cb08c042a7b0e0d757356b27bacf193",
+      "sourceSha256": null,
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": false
+    },
+    {
+      "path": "combat-clarity.ts",
+      "targetSha256": "492427176f93bd5015f6ec6700f04ffb4bb802120f1231be6a95839dbc06bc70",
+      "sourceSha256": "492427176f93bd5015f6ec6700f04ffb4bb802120f1231be6a95839dbc06bc70",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "combat-gigapack-relics.ts",
+      "targetSha256": "725b785ae057c1eea27d392ab4297ae22c01e7c67ba11eddf4e5baf4b3a3b6db",
+      "sourceSha256": "725b785ae057c1eea27d392ab4297ae22c01e7c67ba11eddf4e5baf4b3a3b6db",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "combat-reactions.ts",
+      "targetSha256": "24d9b5482aa18acf7eef68126903ab88048be8c24167bea9320d48764825e2f7",
+      "sourceSha256": "24d9b5482aa18acf7eef68126903ab88048be8c24167bea9320d48764825e2f7",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "combat-relic-behaviors.ts",
+      "targetSha256": "43199d2c5d48f75857f821a3a9510ed353ae88ab1f7bedd56a5092ad83358517",
+      "sourceSha256": "43199d2c5d48f75857f821a3a9510ed353ae88ab1f7bedd56a5092ad83358517",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "combat.ts",
+      "targetSha256": "c1fcd101c8daad713a85a77670a84c1864fdde63f83dbc97699a7aa46e18655a",
+      "sourceSha256": "43bc685d97689b20760e0fbf1e24b8ddf0c1042fda7879d109e65918cdba9fa8",
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": true
+    },
+    {
+      "path": "content/content-types.ts",
+      "targetSha256": "425e221bb1dc99fb87652951be2badd6bac3c5b9589e8a1f62810f2ecf1ce951",
+      "sourceSha256": "22b196eb8bce414efe952597a44d21067153f30e0fe8e2d2ec6897c64a8a2516",
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": true
+    },
+    {
+      "path": "content/content-validation.ts",
+      "targetSha256": "e45d0ab9ff2ba0f9d4b1ff8d7c8360b3400113b2ea6c6ca401315df03323225c",
+      "sourceSha256": "e45d0ab9ff2ba0f9d4b1ff8d7c8360b3400113b2ea6c6ca401315df03323225c",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relic-effects.ts",
+      "targetSha256": "2fa9a626cb2946402c2df309e127b8ccf88c17c0ec05a4275cb17bbe9062698a",
+      "sourceSha256": "2fa9a626cb2946402c2df309e127b8ccf88c17c0ec05a4275cb17bbe9062698a",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relic-icons.ts",
+      "targetSha256": "3adb1494f5e35b5e2cac5b8775a68357d75e56b978941c5a5ba26724ff79b055",
+      "sourceSha256": "3adb1494f5e35b5e2cac5b8775a68357d75e56b978941c5a5ba26724ff79b055",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relic-registry.ts",
+      "targetSha256": "367ab654e6eacf51f23cc9737fe1d535be708db477053e4613346fd0cce0979e",
+      "sourceSha256": "367ab654e6eacf51f23cc9737fe1d535be708db477053e4613346fd0cce0979e",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relics/advanced-relics.ts",
+      "targetSha256": "832a1776b1b70ab62d543aab4944b7fbe7bb238e8f41512d474a71e4a4483933",
+      "sourceSha256": "832a1776b1b70ab62d543aab4944b7fbe7bb238e8f41512d474a71e4a4483933",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relics/behavior-relics.ts",
+      "targetSha256": "7ac313a8c6bd831ee1423fca48fe94761f831852d69c8bb0a4b5d3095d951488",
+      "sourceSha256": "7ac313a8c6bd831ee1423fca48fe94761f831852d69c8bb0a4b5d3095d951488",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relics/endless-passives.ts",
+      "targetSha256": "b332ccc658f7ce41ceb8213575007bea4cc9fe73f7710f5d853d4d8f08fabeba",
+      "sourceSha256": "a8f19c37034326cd871dc85501e929d64736b3fa0607dd8cd25acf8cad7e77bf",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relics/gigapack-relics.ts",
+      "targetSha256": "493cb4663831566684c1bd8bd493dc55d8ab74ef3c37786e0d28e4779de542a9",
+      "sourceSha256": "493cb4663831566684c1bd8bd493dc55d8ab74ef3c37786e0d28e4779de542a9",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/relics/tide-prism.ts",
+      "targetSha256": "53294549fa56aeb1a58b00ca9abaf554377cf4943704e8ebf004e7582af854a5",
+      "sourceSha256": "53294549fa56aeb1a58b00ca9abaf554377cf4943704e8ebf004e7582af854a5",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "content/weapon-traits.ts",
+      "targetSha256": "d6c10361a3592a4b5ae01d305ffe62860a2b2cca84de6c209733a6b8955ef70d",
+      "sourceSha256": "d6c10361a3592a4b5ae01d305ffe62860a2b2cca84de6c209733a6b8955ef70d",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "creature-animation.ts",
+      "targetSha256": "9c3cbd4e44252c7edadc410d6fd27d2912e524b59948950117c139d744c714c2",
+      "sourceSha256": "9c3cbd4e44252c7edadc410d6fd27d2912e524b59948950117c139d744c714c2",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "crownthorn-animation.ts",
+      "targetSha256": "670556ec92d2df4c23f754a2fc9c7b409304b69cd9de9af55c0af1b5ccf685cf",
+      "sourceSha256": "670556ec92d2df4c23f754a2fc9c7b409304b69cd9de9af55c0af1b5ccf685cf",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "dream-combat.ts",
+      "targetSha256": "e465d25c356e66af0a4543556e71ba3135001e99589018fb185e3d5db7cd2974",
+      "sourceSha256": "e465d25c356e66af0a4543556e71ba3135001e99589018fb185e3d5db7cd2974",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "elite-quake.ts",
+      "targetSha256": "4a6d580d27723f0243967724f9abc1745e7340eb1f53ae1e386eed5fce6658bf",
+      "sourceSha256": "fbd927146ca1a8acd1c2c2c0591f24a1a55eb88fca3b0f3429b62955d1646660",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "endless-boss.ts",
+      "targetSha256": "ca38df8dcbc4c6dbc339e3155bde19321cbe28893c3b570138e409c1dc26238e",
+      "sourceSha256": "ca38df8dcbc4c6dbc339e3155bde19321cbe28893c3b570138e409c1dc26238e",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "endless-encounters.ts",
+      "targetSha256": "e5694026af2f7bad5a1071fde76a404f706aac616bff4f3d2658a350a1bbfc9c",
+      "sourceSha256": "e5694026af2f7bad5a1071fde76a404f706aac616bff4f3d2658a350a1bbfc9c",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "endless-regions.ts",
+      "targetSha256": "2bba6b7fcd2d926ab981ad096cde6fcee52010e2f1b3db8ab4a2dae1ba89cb02",
+      "sourceSha256": null,
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": false
+    },
+    {
+      "path": "endless-roster.ts",
+      "targetSha256": "1240757897d9eb44cf3cb80b6c5810acccb7848fb9a98645b834c1594932dea6",
+      "sourceSha256": "1240757897d9eb44cf3cb80b6c5810acccb7848fb9a98645b834c1594932dea6",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "enemy-challenge.ts",
+      "targetSha256": "d8582e46af81eb42c416245e606e5517d21e1d15c447f88fba4488e7ab7def01",
+      "sourceSha256": "d8582e46af81eb42c416245e606e5517d21e1d15c447f88fba4488e7ab7def01",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "enemy-directions.ts",
+      "targetSha256": "38ea52a0b11acd2ff57322fec323ac276feacc1a88d25017826ad9eee1afb1e9",
+      "sourceSha256": "38ea52a0b11acd2ff57322fec323ac276feacc1a88d25017826ad9eee1afb1e9",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "enemy-motion.ts",
+      "targetSha256": "69f7d220e1fa3fec37d6087c9011ce60741057bacce3ef5302dbb5a8bb025616",
+      "sourceSha256": "69f7d220e1fa3fec37d6087c9011ce60741057bacce3ef5302dbb5a8bb025616",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "flame-sweep.ts",
+      "targetSha256": "2e1c3b5e8951d15af9bba778196c9ad8e13ab088ad808754f4bcecf7f5aee893",
+      "sourceSha256": "2e1c3b5e8951d15af9bba778196c9ad8e13ab088ad808754f4bcecf7f5aee893",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "frost-combat.ts",
+      "targetSha256": "3eea6c2f977971add55872259c401c79a26e60ef44040b4a74e7a79507f4583e",
+      "sourceSha256": "3eea6c2f977971add55872259c401c79a26e60ef44040b4a74e7a79507f4583e",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "fusion.ts",
+      "targetSha256": "4ba78c084e50c2b85b9edb28958e7d95c06adecb2073cf4b1abed39c92a7e162",
+      "sourceSha256": "4ba78c084e50c2b85b9edb28958e7d95c06adecb2073cf4b1abed39c92a7e162",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "grass-blob.ts",
+      "targetSha256": "7bdc1752c64553b45214d3d2234421c241b92f37e1ae7cba86acdf96846aeb5a",
+      "sourceSha256": "7bdc1752c64553b45214d3d2234421c241b92f37e1ae7cba86acdf96846aeb5a",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "ice-skills.ts",
+      "targetSha256": "25f0f19611b29e9e9fe9eb2cba6a42d59e249868be74a63af463783f3adc8ae2",
+      "sourceSha256": "25f0f19611b29e9e9fe9eb2cba6a42d59e249868be74a63af463783f3adc8ae2",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "navigation.ts",
+      "targetSha256": "2a0f2546f8435cf6eef82ac9948285448cda82a4e0650726420ed4163147cea8",
+      "sourceSha256": "2a0f2546f8435cf6eef82ac9948285448cda82a4e0650726420ed4163147cea8",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "party.ts",
+      "targetSha256": "a465c9d9f82b8d7958c834f6bc14a9de5e51f6e383eab6af9cd1ad16aa3e0e06",
+      "sourceSha256": "a465c9d9f82b8d7958c834f6bc14a9de5e51f6e383eab6af9cd1ad16aa3e0e06",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "player-feedback.ts",
+      "targetSha256": "9d002f16cb72200c3b295bb54a90cb1b74bb83ff2fdc19b28c8e30bc018be224",
+      "sourceSha256": "9d002f16cb72200c3b295bb54a90cb1b74bb83ff2fdc19b28c8e30bc018be224",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "position-aoe.ts",
+      "targetSha256": "0c6a5b7a878b5411432e3824cf6a23f856681ace225b09d162d34151ea0095c4",
+      "sourceSha256": "0c6a5b7a878b5411432e3824cf6a23f856681ace225b09d162d34151ea0095c4",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "progression.ts",
+      "targetSha256": "8be61c0f9d7520896f9eb374730481f89f7f6e59e98d152bcd65d14f61245b6c",
+      "sourceSha256": "51bc5a11ba648343f9e19b327cbae25fdbf50a5ce8cb15db88c889d5c3eaaf82",
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": true
+    },
+    {
+      "path": "ranged-enemies.ts",
+      "targetSha256": "6aaae23b6088b1469d6e10b9581119263c4226e686780e2d2443aee446f19af8",
+      "sourceSha256": "6aaae23b6088b1469d6e10b9581119263c4226e686780e2d2443aee446f19af8",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "relics.ts",
+      "targetSha256": "422b6a33377fb9b8878687c9826f8a297b8638720d3f0942f3be2480d3b9c3b2",
+      "sourceSha256": "422b6a33377fb9b8878687c9826f8a297b8638720d3f0942f3be2480d3b9c3b2",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "run-build.ts",
+      "targetSha256": "6a467d2e316675fe896a57593f203ea2e4a843e14777acd381189d72caa8e5f9",
+      "sourceSha256": "e25edd1ce92bbe7887da909813de9d738e71703181a252674347fc264edccea9",
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": true
+    },
+    {
+      "path": "run-flow.ts",
+      "targetSha256": "1b5d654e84c4cd77d52b8ad614eb02e0ad2b0d7404065a007e1b40ed40b4e8da",
+      "sourceSha256": "d21126a6be3b4e94e432249bc04801c27742b9b6022054854f7935c408619536",
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": true
+    },
+    {
+      "path": "shop.ts",
+      "targetSha256": "d032133b93e65edd128a34398e4f66de83025d32a7ec3b9722b1308dd978a3e4",
+      "sourceSha256": "abc06f6f97e18ca85854a9ef1d9363fffe57218754f096defff8624c41ae2da3",
+      "sameTextIgnoringCRLF": false,
+      "sourceExists": true
+    },
+    {
+      "path": "sound-design.ts",
+      "targetSha256": "b2e7f41b58c7daacb1135c4430a94eb6cbe3975214e34bb796f86286e83a19db",
+      "sourceSha256": "b2e7f41b58c7daacb1135c4430a94eb6cbe3975214e34bb796f86286e83a19db",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "spatial-index.ts",
+      "targetSha256": "89f93244202808046dddacdbc351c6822a6b03c98fdf90b9e3a7fd0dec1c413f",
+      "sourceSha256": "89f93244202808046dddacdbc351c6822a6b03c98fdf90b9e3a7fd0dec1c413f",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "spawn-layout.ts",
+      "targetSha256": "41cee0b09e04f4e2eaaab89cb686ba473efe163e9998e8f0d61147015aefcc06",
+      "sourceSha256": "41cee0b09e04f4e2eaaab89cb686ba473efe163e9998e8f0d61147015aefcc06",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "special-enemies.ts",
+      "targetSha256": "7c32b69700f7a64820556a444c4ce6a3ee232dbfe17fee939f679a6806b7a0d8",
+      "sourceSha256": "7c32b69700f7a64820556a444c4ce6a3ee232dbfe17fee939f679a6806b7a0d8",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "thunder-weapon.ts",
+      "targetSha256": "f97612e22399b04cb611d4312998312e660210707b809591c8c9008ce0479089",
+      "sourceSha256": "f97612e22399b04cb611d4312998312e660210707b809591c8c9008ce0479089",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "trial.ts",
+      "targetSha256": "ba9d202eecf6dfc9db499d8ff2b8dbfb5c18753878aadbc1a605422bf4d7d58b",
+      "sourceSha256": "ba9d202eecf6dfc9db499d8ff2b8dbfb5c18753878aadbc1a605422bf4d7d58b",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "visuals/gigapack-clips.ts",
+      "targetSha256": "b70ee1c9fc0cd88e72bef9e2c81c2d113a654e0cb9fa257252c1bff3d474af4c",
+      "sourceSha256": "b70ee1c9fc0cd88e72bef9e2c81c2d113a654e0cb9fa257252c1bff3d474af4c",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "visuals/gigapack-presets.ts",
+      "targetSha256": "440f53f0c92209d121ec46ac9000ac8e92dc276c604c08beea84284ec816690d",
+      "sourceSha256": "440f53f0c92209d121ec46ac9000ac8e92dc276c604c08beea84284ec816690d",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "visuals/vfx-presets.ts",
+      "targetSha256": "e1ace3300363047ce4001d52040bffe09cd87ce8860c75d899721a0b84eb13f6",
+      "sourceSha256": "e1ace3300363047ce4001d52040bffe09cd87ce8860c75d899721a0b84eb13f6",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "water-aoe.ts",
+      "targetSha256": "3c0ca0287e8b438151ecdda646defd4c50e4165cd52f5bf25c850b5f8ee1b807",
+      "sourceSha256": "3c0ca0287e8b438151ecdda646defd4c50e4165cd52f5bf25c850b5f8ee1b807",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "water-evolution.ts",
+      "targetSha256": "e9c4cbd21067ceb7bd80eddde8cc7fb6a8d971e2d6c304112a52676bd9dde22e",
+      "sourceSha256": "e9c4cbd21067ceb7bd80eddde8cc7fb6a8d971e2d6c304112a52676bd9dde22e",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "wave-director.ts",
+      "targetSha256": "5e9eb0488d6c4a211c6a51530f752c1a3cc6601f16791f5bb68cbd4a88cd4c99",
+      "sourceSha256": "5e9eb0488d6c4a211c6a51530f752c1a3cc6601f16791f5bb68cbd4a88cd4c99",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    },
+    {
+      "path": "weapon-pair-fusion.ts",
+      "targetSha256": "6ca4eb1e32d518818a1d49e8ffe49b671fc42ad9f93bbf4060486cb1b2d78a0c",
+      "sourceSha256": "6ca4eb1e32d518818a1d49e8ffe49b671fc42ad9f93bbf4060486cb1b2d78a0c",
+      "sameTextIgnoringCRLF": true,
+      "sourceExists": true
+    }
+  ]
+}

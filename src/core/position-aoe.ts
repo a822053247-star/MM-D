@@ -6,7 +6,9 @@ export type PositionSkill = typeof POSITION_IDS[number];
 export const POSITION_NAMES: Record<PositionSkill, string> = {
   'abyss-vortex': '深渊漩涡', 'ice-radiance': '冰棱放射', 'spore-trail': '孢火足迹', 'tidal-recall': '潮汐回收',
 };
-export const POSITION_LIMITS = { enemies: 256, vortex: 2, radiance: 2, trails: 16, recall: 2, beams: 16, tick: .5, stride: 1.2 } as const;
+export const POSITION_LIMITS = { enemies: 256, vortex: 2, radiance: 2, trails: 16, recall: 2, beams: 16, tick: .5, stride: 1.2,
+  rayStart: .4, rayHalfWidth: .3, rayWarning: .24, ringWarning: .2, ringBand: .25,
+  feedback: 96, feedbackDuration: .28 } as const;
 export function positionStats(id: PositionSkill, rank: number) {
   const n = Math.max(1, Math.min(5, Math.floor(rank))) - 1;
   switch (id) {
@@ -23,6 +25,9 @@ export interface PositionCast extends Point {
   nextTick: number; beams: number; angle: number; mode: 'rays' | 'ring'; fired: boolean;
   hits: Int32Array; returnHits: Int32Array; source?: RelicDamageSource;
 }
+export interface PositionFeedback extends Point {
+  active: boolean; kind: PositionSkill; type: 'hit' | 'orb-pull'; age: number; seed: number;
+}
 interface PositionHost {
   enemies(): readonly Enemy[]; orbs(): readonly ExperienceOrb[]; origin(): Point;
   spellCenter(): Point; aim(): number; nextCastId(): number;
@@ -34,6 +39,11 @@ interface PositionHost {
 }
 /** Distinct bounded simulation for pull fields, gapped rays, walking trails and two-pass recall waves. */
 export class PositionAoe {
+  private feedbackSlots: PositionFeedback[] = Array.from({ length: POSITION_LIMITS.feedback }, () => ({
+    active: false, kind: 'abyss-vortex', type: 'hit', x: 0, z: 0, age: 0, seed: 0,
+  }));
+  readonly feedback: readonly Readonly<PositionFeedback>[] = this.feedbackSlots;
+  private feedbackIndex = 0;
   readonly casts: PositionCast[] = POSITION_IDS.flatMap(kind => Array.from({ length: kind === 'spore-trail' ? POSITION_LIMITS.trails : 2 }, () => ({
     active: false, kind, castId: 0, age: 0, x: 0, z: 0, originX: 0, originZ: 0, previousX: 0, previousZ: 0,
     radius: 0, ringRadius: 0, previousRadius: 0, damage: 0, duration: 0, nextTick: .5, beams: 0, angle: 0,
@@ -82,6 +92,9 @@ export class PositionAoe {
   }
   update(dt: number, ranks: Partial<Record<PositionSkill, number>>, multiplier: number) {
     if (!Number.isFinite(dt) || dt <= 0) return;
+    for (const event of this.feedbackSlots) if (event.active) {
+      event.age += dt; if (event.age >= POSITION_LIMITS.feedbackDuration) event.active = false;
+    }
     this.elapsed += dt; const kills = this.telemetry.kills, origin = this.host.origin();
     for (const id of POSITION_IDS) {
       this.clocks[id] -= dt;
@@ -124,14 +137,14 @@ export class PositionAoe {
           cast.nextTick += .5;
         }
       } else if (cast.kind === 'ice-radiance' && cast.mode === 'rays') {
-        if (!cast.fired && cast.age >= .24) {
+        if (!cast.fired && cast.age >= POSITION_LIMITS.rayWarning) {
           cast.fired = true; const source = this.tickSource(cast);
           this.eachEnemy((enemy, i) => {
             if (cast.hits[i] === enemy.id) return;
             const dx = enemy.x - cast.x, dz = enemy.z - cast.z, distance = Math.hypot(dx, dz);
             const step = Math.PI * 2 / cast.beams, a = Math.atan2(dz, dx) - cast.angle;
             const offset = a - Math.round(a / step) * step, along = Math.cos(offset) * distance;
-            if (along < .4 || along > cast.radius || Math.abs(Math.sin(offset) * distance) > .3) return;
+            if (along < POSITION_LIMITS.rayStart || along > cast.radius || Math.abs(Math.sin(offset) * distance) > POSITION_LIMITS.rayHalfWidth) return;
             cast.hits[i] = enemy.id; this.hit(cast, enemy, source);
           });
           this.host.sound('shockwave');
@@ -147,15 +160,18 @@ export class PositionAoe {
             const progress = returning ? (age - half) / half : age / half;
             cast.ringRadius = cast.radius * (returning ? 1 - progress : progress);
             if (returning) { cast.x = cast.originX + (origin.x - cast.originX) * progress; cast.z = cast.originZ + (origin.z - cast.originZ) * progress; }
-          } else cast.ringRadius = cast.radius * Math.max(0, Math.min(1, (age - .2) / .75));
-          if (!recall && age <= .2) continue;
+          } else cast.ringRadius = cast.radius * Math.max(0, Math.min(1, (age - POSITION_LIMITS.ringWarning) / .75));
+          if (!recall && age <= POSITION_LIMITS.ringWarning) continue;
           const ids = returning ? cast.returnHits : cast.hits, source = this.tickSource(cast);
           this.eachEnemy((enemy, i) => {
             if (ids[i] === enemy.id || !this.ringPassed(cast, enemy)) return;
             ids[i] = enemy.id; this.hit(cast, enemy, source);
           });
           if (returning) for (const orb of this.host.orbs()) {
-            if (orb.active && !orb.magnetized && this.ringPassed(cast, orb)) { orb.magnetized = true; this.telemetry.orbsPulled++; }
+            if (orb.active && !orb.magnetized && this.ringPassed(cast, orb)) {
+              orb.magnetized = true; this.telemetry.orbsPulled++;
+              this.record(cast, 'orb-pull', orb.x, orb.z, cast.castId);
+            }
           }
         }
         if (recall && previousAge <= half && cast.age > half) this.host.sound('water');
@@ -167,7 +183,7 @@ export class PositionAoe {
   private ringPassed(cast: PositionCast, p: Point) {
     const before = Math.hypot(p.x - cast.previousX, p.z - cast.previousZ) - cast.previousRadius;
     const after = Math.hypot(p.x - cast.x, p.z - cast.z) - cast.ringRadius;
-    return before * after <= 0 || Math.abs(after) <= .25;
+    return before * after <= 0 || Math.abs(after) <= POSITION_LIMITS.ringBand;
   }
   private eligible(e: Enemy) { return e.active && e.hp > 0 && e.spawnTime <= 0; }
   private eachEnemy(visit: (enemy: Enemy, index: number) => void) {
@@ -178,10 +194,19 @@ export class PositionAoe {
     return { ...cast.source!, areaBudget: { nodes: 0, hits: new Map(), shared: cast.source!.areaBudget!.shared } };
   }
   private hit(cast: PositionCast, enemy: Enemy, source: RelicDamageSource) {
+    const x = enemy.x, z = enemy.z;
     this.host.damage(enemy, cast.damage * (enemy.rank === 'boss' ? (cast.kind === 'tidal-recall' ? .6 : cast.kind === 'ice-radiance' ? .55 : .45) : enemy.rank === 'elite' ? .7 : 1), source);
+    this.record(cast, 'hit', x, z, enemy.id + cast.castId);
     this.telemetry.hits++; if (enemy.hp <= 0) this.telemetry.kills++;
   }
+  private record(cast: PositionCast, type: PositionFeedback['type'], x: number, z: number, seed: number) {
+    const event = this.feedbackSlots[this.feedbackIndex];
+    this.feedbackIndex = (this.feedbackIndex + 1) % this.feedbackSlots.length;
+    Object.assign(event, { active: true, kind: cast.kind, type, x, z, age: 0, seed });
+  }
   clear() {
+    for (const event of this.feedbackSlots) event.active = false;
+    this.feedbackIndex = 0;
     for (const cast of this.casts) { cast.active = false; cast.source = undefined; cast.hits.fill(0); cast.returnHits.fill(0); }
     this.walking = false; this.trailDistance = 0; this.trailIds.fill(0); this.trailReady.fill(0);
   }

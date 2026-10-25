@@ -2,13 +2,23 @@ import * as THREE from 'three';
 import { ASSETS, assetPath } from './assets';
 import { CreatureAnimator, clipFrame } from './core/creature-animation';
 import { enemyFacing, ENEMY_DIRECTION_FRAMES } from './core/enemy-directions';
-import { COMBAT_LIMITS } from './core/combat';
+import { COMBAT_LIMITS, type Projectile } from './core/combat';
 import { ARENA_HALF_EXTENT } from './core/arena-boundary';
 import { OBSTACLES, type FirstRun } from './model';
 import type { DouyinPlatform } from './platform';
 import type { HUD } from './hud';
 import { CampaignView } from './campaign-view';
 import { SkillVfx } from './skill-vfx';
+import { EffectAssets } from './assets/effect-assets';
+import { ProjectileVfx } from './projectile-vfx';
+import type { ProjectileDetail } from './content/projectile-recipes';
+import { WaterVfx } from './water-vfx';
+import { ThunderVfx } from './thunder-vfx';
+import { FrostVfx } from './frost-vfx';
+import { BladeVfx } from './blade-vfx';
+import { PositionVfx } from './position-vfx';
+import { AreaAttackVfx } from './area-attack-vfx';
+import { DreamVfx } from './dream-vfx';
 type VisibleEnemyKind = 'normal' | 'fast' | 'tank' | 'draft-crystal-swarm' | 'draft-spore-bomber' | 'draft-treasure-runner';
 
 function texture(image: HTMLImageElement) {
@@ -53,7 +63,8 @@ class EnemyBatch {
       this.pose.position.set(enemy.x, .03 + Math.abs(Math.sin(enemy.age * 7)) * .07, enemy.z);
       this.pose.quaternion.copy(camera.quaternion); this.pose.scale.set(height, height, 1); this.pose.updateMatrix();
       this.mesh.setMatrixAt(count, this.pose.matrix);
-      this.color.set(enemy.flash > 0 ? '#fff3d2' : enemy.age < enemy.spawnTime ? '#a4b58c' : '#ffffff');
+      this.color.set(enemy.flash > 0 ? '#fff3d2' : enemy.age < enemy.spawnTime ? '#a4b58c'
+        : (enemy.freezeTime ?? 0) > 0 ? '#a9e3ff' : '#ffffff');
       this.mesh.setColorAt(count, this.color); this.frames.setXY(count, frame, mirror); count++;
     }
     this.mesh.count = count; this.mesh.instanceMatrix.needsUpdate = true;
@@ -64,6 +75,15 @@ class EnemyBatch {
 }
 
 export class GameView {
+  readonly effectAssets: EffectAssets;
+  readonly projectileVfx: ProjectileVfx;
+  readonly waterVfx: WaterVfx;
+  readonly thunderVfx: ThunderVfx;
+  readonly frostVfx: FrostVfx;
+  readonly bladeVfx: BladeVfx;
+  readonly positionVfx: PositionVfx;
+  readonly areaAttackVfx: AreaAttackVfx;
+  readonly dreamVfx: DreamVfx;
   readonly skillVfx: SkillVfx;
   readonly renderer: THREE.WebGLRenderer;
   readonly scene = new THREE.Scene();
@@ -73,7 +93,7 @@ export class GameView {
   private walk?: THREE.Texture;
   private diagonal?: THREE.Texture;
   private enemies?: Record<VisibleEnemyKind, EnemyBatch>;
-  private campaign = new CampaignView();
+  private campaign: CampaignView;
   private pose = new THREE.Object3D();
   private bolts = this.pool(new THREE.SphereGeometry(.16, 6, 4), '#ffd16b', COMBAT_LIMITS.projectiles);
   private boltColor = new THREE.Color();
@@ -83,7 +103,6 @@ export class GameView {
   private waves = this.pool(new THREE.RingGeometry(.95, 1, 48), '#a5e9de', COMBAT_LIMITS.shockwaves);
   private heroShadow = new THREE.Mesh(new THREE.CircleGeometry(.7, 20), new THREE.MeshBasicMaterial({ color: '#1a3a29', transparent: true, opacity: .3, depthWrite: false }));
   constructor(private platform: DouyinPlatform) {
-    this.skillVfx = new SkillVfx(platform);
     const canvas = platform.canvas;
     // Three.js requires an event target even though tt delivers touch/lifecycle separately.
     canvas.addEventListener ??= () => {};
@@ -92,6 +111,21 @@ export class GameView {
     const context = canvas.getContext('webgl2', { alpha: false, antialias: false, depth: true, stencil: false }) as WebGL2RenderingContext | null;
     if (!context) throw new Error('当前设备无法创建 WebGL 2 场景，请更新抖音后重试');
     this.renderer = new THREE.WebGLRenderer({ canvas, context, alpha: false, antialias: false });
+    this.effectAssets = new EffectAssets(platform, texture => {
+      if (this.renderer.getContext().isContextLost()) throw new Error('画面上下文已中断');
+      this.renderer.initTexture(texture);
+    });
+    this.skillVfx = new SkillVfx(this.effectAssets);
+    this.projectileVfx = new ProjectileVfx(this.effectAssets);
+    this.waterVfx = new WaterVfx();
+    this.thunderVfx = new ThunderVfx();
+    this.frostVfx = new FrostVfx();
+    this.bladeVfx = new BladeVfx();
+    this.positionVfx = new PositionVfx();
+    this.areaAttackVfx = new AreaAttackVfx();
+    this.dreamVfx = new DreamVfx(this.effectAssets);
+    this.setEffectDetail(platform.read<unknown>('mm-douyin-effect-detail', 'full') === 'reduced' ? 'reduced' : 'full');
+    this.campaign = new CampaignView(this.effectAssets);
     this.renderer.autoClear = false; this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.info.autoReset = false;
     this.scene.background = new THREE.Color('#82a06b');
@@ -124,6 +158,14 @@ export class GameView {
     this.heroShadow.rotation.x = -Math.PI / 2; this.heroShadow.position.y = .025; this.scene.add(this.heroShadow);
     this.scene.add(this.campaign.group);
     this.scene.add(this.skillVfx.group);
+    this.scene.add(this.projectileVfx.group);
+    this.scene.add(this.waterVfx.group);
+    this.scene.add(this.thunderVfx.group);
+    this.scene.add(this.frostVfx.group);
+    this.scene.add(this.bladeVfx.group);
+    this.scene.add(this.positionVfx.group);
+    this.scene.add(this.areaAttackVfx.group);
+    this.scene.add(this.dreamVfx.group);
     this.resize();
   }
   private pool(geometry: THREE.BufferGeometry, color: string, size: number) {
@@ -132,8 +174,12 @@ export class GameView {
     this.scene.add(mesh); return mesh;
   }
   async loadImages() {
-    const [walk, diagonal, normal, fast, tank, menu, crystal, spore, treasure, boss, flame] = await Promise.all(
-      [ASSETS.walk, ASSETS.diagonal, ASSETS.normal, ASSETS.fast, ASSETS.tank, ASSETS.menu, ASSETS.crystal, ASSETS.spore, ASSETS.treasure, ASSETS.boss, ASSETS.flame].map(file => this.platform.image(assetPath(file))));
+    this.effectAssets.setReferences('startup', ['flame-sweep-weapon']);
+    const [[walk, diagonal, normal, fast, tank, menu, crystal, spore, treasure, boss]] = await Promise.all([
+      Promise.all([ASSETS.walk, ASSETS.diagonal, ASSETS.normal, ASSETS.fast, ASSETS.tank, ASSETS.menu,
+        ASSETS.crystal, ASSETS.spore, ASSETS.treasure, ASSETS.boss].map(file => this.platform.image(assetPath(file)))),
+      this.effectAssets.prepare(['flame-sweep-weapon']),
+    ]);
     this.walk = texture(walk); this.diagonal = texture(diagonal);
     const material = new THREE.SpriteMaterial({ map: this.walk, alphaTest: .12, transparent: true, depthWrite: false, toneMapped: false });
     this.hero = new THREE.Sprite(material); this.hero.center.set(.5, 1 - 240 / 256);
@@ -141,8 +187,8 @@ export class GameView {
     this.enemies = { normal: new EnemyBatch(normal), fast: new EnemyBatch(fast), tank: new EnemyBatch(tank),
       'draft-crystal-swarm': new EnemyBatch(crystal), 'draft-spore-bomber': new EnemyBatch(spore), 'draft-treasure-runner': new EnemyBatch(treasure) };
     this.campaign.setBossImage(boss);
-    this.campaign.setSweepImage(flame);
     for (const batch of Object.values(this.enemies)) this.scene.add(batch.mesh);
+    this.effectAssets.setReferences('startup', []);
     return menu;
   }
   resize() {
@@ -153,7 +199,24 @@ export class GameView {
     this.camera.left = -half * aspect; this.camera.right = half * aspect; this.camera.top = half; this.camera.bottom = -half;
     this.camera.updateProjectionMatrix();
   }
-  reset() { this.animator.reset(); }
+  reset() {
+    this.animator.reset(); this.projectileVfx.reset(); this.waterVfx.reset(); this.thunderVfx.reset(); this.frostVfx.reset();
+    this.bladeVfx.reset();
+    this.positionVfx.reset();
+    this.areaAttackVfx.reset();
+    this.dreamVfx.reset();
+  }
+  setEffectDetail(detail: ProjectileDetail) {
+    this.projectileVfx.setDetail(detail); this.waterVfx.setDetail(detail); this.thunderVfx.setDetail(detail);
+    this.frostVfx.setDetail(detail);
+    this.bladeVfx.setDetail(detail);
+    this.positionVfx.setDetail(detail);
+    this.areaAttackVfx.setDetail(detail);
+    this.dreamVfx.setDetail(detail);
+  }
+  sampleEffects(model: FirstRun) {
+    this.projectileVfx.sample(model.combat); this.bladeVfx.sample(model.combat); this.areaAttackVfx.sample(model.combat);
+  }
   update(model: FirstRun, dt: number) {
     const player = model.player, combat = model.combat;
     this.camera.position.set(player.x, 24, player.z + 28); this.camera.lookAt(player.x, 0, player.z); this.camera.updateMatrixWorld();
@@ -175,16 +238,24 @@ export class GameView {
     combat.spawnViewport = viewport; combat.attackViewport = viewport;
     this.campaign.update(model, this.camera);
     this.skillVfx.update(model);
+    this.projectileVfx.update(combat, model.mode !== 'menu');
+    this.waterVfx.update(combat, !!model.run && model.mode !== 'menu');
+    this.thunderVfx.update(combat, !!model.run && model.mode !== 'menu');
+    this.frostVfx.update(combat, !!model.run && model.mode !== 'menu');
+    this.bladeVfx.update(combat, !!model.run && model.mode !== 'menu');
+    this.positionVfx.update(combat, !!model.run && model.mode !== 'menu');
+    this.areaAttackVfx.update(combat, !!model.run && model.mode !== 'menu');
+    this.dreamVfx.update(combat, !!model.run && model.mode !== 'menu');
     const fill = (mesh: THREE.InstancedMesh, items: readonly { active: boolean; x: number; z: number }[], height: number) => {
       let n = 0;
-      for (const item of items) if (item.active && !(mesh === this.bolts && (item as { attackId?: string }).attackId === 'dream-dart')) {
+      for (const item of items) if (item.active && !(mesh === this.bolts && this.projectileVfx.owns(item as Projectile))) {
         this.pose.position.set(item.x, height, item.z); this.pose.rotation.set(0, 0, 0); this.pose.scale.setScalar(1); this.pose.updateMatrix(); mesh.setMatrixAt(n++, this.pose.matrix);
       }
       mesh.count = n; mesh.instanceMatrix.needsUpdate = true;
     };
     fill(this.bolts, combat.projectiles, .8); fill(this.gems, combat.orbs, .22); fill(this.sparks, combat.effects, .6);
     let boltIndex = 0;
-    for (const shot of combat.projectiles) if (shot.active && shot.attackId !== 'dream-dart') this.bolts.setColorAt(boltIndex++, this.boltColor.set(shot.attackId === 'leaf' ? '#81d46d' : '#ffffff'));
+    for (const shot of combat.projectiles) if (shot.active && !this.projectileVfx.owns(shot)) this.bolts.setColorAt(boltIndex++, this.boltColor.set(shot.attackId === 'leaf' ? '#81d46d' : '#ffffff'));
     if (this.bolts.instanceColor) this.bolts.instanceColor.needsUpdate = true;
     this.orbits.count = combat.stats.orbitCount;
     for (let i = 0; i < this.orbits.count; i++) {

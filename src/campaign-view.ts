@@ -4,7 +4,8 @@ import { COMBAT_LIMITS, FORMAL_POUNCE } from './core/combat';
 import { ENCOUNTER_RULES } from './core/enemy-challenge';
 import { SPORE_BOMBER } from './core/special-enemies';
 import { GRASS_BLOB } from './core/grass-blob';
-import { VFX_ATLASES } from './vfx-atlas-manifest';
+import { SectorWave } from './render/vfx/sector-wave';
+import type { EffectAssets } from './assets/effect-assets';
 
 /** Shared, bounded presentation of formal-mode attacks. Simulation remains upstream. */
 export class CampaignView {
@@ -17,30 +18,12 @@ export class CampaignView {
   private health = this.pool(new THREE.PlaneGeometry(1, .08), '#b8eb90', COMBAT_LIMITS.enemies);
   private chests = this.pool(new THREE.OctahedronGeometry(.42, 0), '#f9d56c', 8);
   private elite = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshLambertMaterial({ color: '#bca8d0' }));
-  private sweep: THREE.Mesh;
-  private sweepPositions = new Float32Array(96 * 18);
-  private sweepUVs = new Float32Array(96 * 12);
-  private sweepTexture?: THREE.Texture;
+  private sweep = new SectorWave();
   private boss?: THREE.Sprite;
-  constructor() {
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.BufferAttribute(this.sweepPositions, 3).setUsage(THREE.DynamicDrawUsage));
-    geometry.setAttribute('uv', new THREE.BufferAttribute(this.sweepUVs, 2).setUsage(THREE.DynamicDrawUsage));
-    this.sweep = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: '#ffb34f', transparent: true, opacity: .6, side: THREE.DoubleSide, depthWrite: false }));
-    this.sweep.frustumCulled = false; this.group.add(this.sweep, this.elite); this.elite.visible = false;
-  }
-  setSweepImage(image: HTMLImageElement) {
-    const tex = this.sweepTexture = new THREE.Texture(image);
-    tex.colorSpace = THREE.SRGBColorSpace; tex.magFilter = tex.minFilter = THREE.NearestFilter;
-    tex.generateMipmaps = false; tex.needsUpdate = true;
-    const material = this.sweep.material as THREE.MeshBasicMaterial;
-    material.map = tex; material.color.set('#ffffff'); material.alphaTest = 2 / 255; material.forceSinglePass = true;
-    material.onBeforeCompile = shader => {
-      shader.fragmentShader = shader.fragmentShader.replace('#include <map_fragment>', `#include <map_fragment>
-        float core = smoothstep(.36, .82, min(diffuseColor.r, min(diffuseColor.g, diffuseColor.b)));
-        diffuseColor.rgb *= mix(vec3(1.0), .7 * vec3(1.0, .84, .45), core);`);
-    };
-    material.customProgramCacheKey = () => 'compressed-flame-sector-v1'; material.needsUpdate = true;
+  constructor(private assets: EffectAssets) {
+    // Hostile danger contours remain above friendly water fills and particles.
+    this.warnings.renderOrder = this.lanes.renderOrder = 10;
+    this.group.add(this.sweep.mesh, this.elite); this.elite.visible = false;
   }
   setBossImage(image: HTMLImageElement) {
     const tex = new THREE.Texture(image); tex.colorSpace = THREE.SRGBColorSpace; tex.needsUpdate = true;
@@ -112,36 +95,9 @@ export class CampaignView {
         this.boss.material.opacity = c.dying ? Math.max(0, 1 - c.bossTime) : 1;
       }
     }
-    const melee = combat.melee, milliseconds = melee.age * 1000;
-    const spec = VFX_ATLASES['flame-sweep'];
-    const duration = spec.durationsMs.reduce((sum, ms) => sum + ms, 0);
-    this.sweep.visible = melee.active && (!this.sweepTexture || milliseconds < duration);
-    if (this.sweep.visible) {
-      if (this.sweepTexture) {
-        let frame = 0, end = spec.durationsMs[0] as number;
-        while (frame < spec.frames.length - 1 && milliseconds >= end) end += spec.durationsMs[++frame];
-        const [x, y, width, height] = spec.frames[frame].rect;
-        this.sweepTexture.repeat.set(width / spec.width, height / spec.height);
-        this.sweepTexture.offset.set(x / spec.width, 1 - (y + height) / spec.height);
-        (this.sweep.material as THREE.MeshBasicMaterial).opacity = .94 * (milliseconds <= 165 ? 1 : Math.pow(Math.max(0, (230 - milliseconds) / 65), 1.5));
-      }
-      const facing = Math.atan2(melee.aimZ, melee.aimX), segments = 96;
-      for (let i = 0; i < segments; i++) {
-        const a = facing - melee.angle / 2 + i / segments * melee.angle, b = facing - melee.angle / 2 + (i + 1) / segments * melee.angle;
-        for (let j = 0; j < 6; j++) {
-          const angle = j === 2 || j === 4 || j === 5 ? b : a;
-          const radius = j === 0 || j === 3 || j === 5 ? .12 : 1;
-          const offset = (i * 6 + j) * 3, uv = (i * 6 + j) * 2;
-          this.sweepPositions[offset] = melee.x + Math.cos(angle) * melee.radius * radius;
-          this.sweepPositions[offset + 1] = .14;
-          this.sweepPositions[offset + 2] = melee.z + Math.sin(angle) * melee.radius * radius;
-          this.sweepUVs[uv] = .5 + Math.cos(angle - facing) * radius * .48;
-          this.sweepUVs[uv + 1] = .36 + Math.sin(angle - facing) * radius * .33;
-        }
-      }
-      this.sweep.geometry.attributes.position.needsUpdate = true;
-      this.sweep.geometry.attributes.uv.needsUpdate = true;
-    }
+    this.sweep.begin(this.assets.texture('flame-sweep'));
+    this.sweep.put(combat.melee);
+    this.sweep.finish();
     for (const mesh of [this.warnings, this.lanes, this.hostile, this.health, this.chests]) {
       mesh.instanceMatrix.needsUpdate = true; if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
     }

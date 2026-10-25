@@ -1,20 +1,20 @@
 import { build } from 'vite';
-import { mkdir, readFile, writeFile, copyFile, cp, readdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, copyFile, cp } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { measure } from './size-lib.mjs';
 import { threeDouyin } from './three-douyin.mjs';
-import { VFX_ATLASES } from '../src/vfx-atlas-manifest.ts';
-import { PIXEL_VFX } from '../src/pixel-vfx-manifest.ts';
+import { EFFECT_ATLASES } from '../src/content/effect-recipes.ts';
+import { RELEASE_EFFECT_ATLASES } from '../src/content/enabled.ts';
 import { createHash } from 'node:crypto';
 
 const testing = process.argv.includes('--test');
 const output = testing ? 'test-results/web' : 'dist';
 const vfxBudget = JSON.parse(await readFile('config/vfx-budget.json', 'utf8'));
-for (const file of (await readdir('resources/vfx-ready')).filter(file => file.endsWith('.json'))) {
-  const atlas = JSON.parse(await readFile(`resources/vfx-ready/${file}`, 'utf8'));
-  const bytes = await readFile(atlas.path);
+for (const id of RELEASE_EFFECT_ATLASES) {
+  const atlas = EFFECT_ATLASES[id];
+  const bytes = await readFile(atlas.source);
   if (bytes.length > vfxBudget.maxAtlasBytes || createHash('sha256').update(bytes).digest('hex') !== atlas.sha256) {
-    throw new Error(`Prepared VFX exceeds budget or differs from manifest: ${atlas.path}`);
+    throw new Error(`Prepared VFX exceeds budget or differs from manifest: ${atlas.source}`);
   }
 }
 await build({
@@ -27,16 +27,22 @@ await build({
   },
 });
 await mkdir(`${output}/first-play`, { recursive: true });
-await cp('resources/first-play', `${output}/first-play`, { recursive: true });
+// Effects only ship through the enabled-content dependency list, including flame.
+await cp('resources/first-play', `${output}/first-play`, { recursive: true,
+  filter: source => resolve(source) !== resolve('resources/first-play/vfx') });
 await mkdir(`${output}/first-play/vfx`, { recursive: true });
-for (const effect of Object.values(PIXEL_VFX)) await copyFile(effect.source, `${output}/first-play/${effect.url}`);
+for (const id of RELEASE_EFFECT_ATLASES) {
+  const effect = EFFECT_ATLASES[id];
+  await copyFile(effect.source, `${output}/first-play/${effect.url}`);
+}
 await writeFile(`${output}/first-play/game.js`, '// First-play resources loaded by tt.loadSubpackage.\n');
 await copyFile('config/game.json', `${output}/game.json`);
 const project = JSON.parse(await readFile('config/project.config.json', 'utf8'));
 project.appid = process.env.DOUYIN_APP_ID ?? project.appid;
 await writeFile(`${output}/project.config.json`, JSON.stringify(project, null, 2));
 await copyFile('THIRD_PARTY_LICENSES.txt', `${output}/THIRD_PARTY_LICENSES.txt`);
-for (const effect of Object.values({ ...VFX_ATLASES, ...PIXEL_VFX })) {
+for (const id of RELEASE_EFFECT_ATLASES) {
+  const effect = EFFECT_ATLASES[id];
   const bytes = await readFile(`${output}/first-play/${effect.url}`);
   if (bytes.length > vfxBudget.maxAtlasBytes) throw new Error(`VFX exceeds per-atlas budget: ${effect.url}`);
   if (createHash('sha256').update(bytes).digest('hex') !== effect.sha256) throw new Error(`VFX manifest does not match resource: ${effect.url}`);

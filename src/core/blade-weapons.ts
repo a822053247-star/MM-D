@@ -4,7 +4,8 @@ import type { RelicDamageSource } from './relics';
 export const BLADE_IDS = ['thorn-wheel', 'tidal-blade'] as const;
 export type BladeId = typeof BLADE_IDS[number];
 export const isBlade = (id: string): id is BladeId => BLADE_IDS.includes(id as BladeId);
-export const BLADE_LIMITS = { wheels: 2, tides: 4, enemies: 256, impacts: 24, step: 1 / 120 } as const;
+export const BLADE_LIMITS = { wheels: 2, tides: 4, enemies: 256, impacts: 24, step: 1 / 120,
+  impactDuration: .32, transitions: 12, transitionDuration: .24 } as const;
 export function bladeStats(id: BladeId, level: number) {
   const n = Math.max(0, Math.min(4, Math.floor(level) - 1));
   return id === 'thorn-wheel'
@@ -22,8 +23,9 @@ interface BladeCast {
   copied: boolean; source?: RelicDamageSource;
   outIds: Int32Array; backIds: Int32Array; hitAt: Float64Array;
 }
-export interface BladePose { active: boolean; x: number; z: number; previousX: number; previousZ: number; angle: number; size: number; copied: boolean }
+export interface BladePose { active: boolean; x: number; z: number; previousX: number; previousZ: number; angle: number; size: number; copied: boolean; castId: number }
 interface BladeImpact { active: boolean; id: BladeId; x: number; z: number; age: number; angle: number }
+interface BladeTransition { active: boolean; kind: 'turn' | 'recover' | 'expire'; x: number; z: number; age: number; size: number }
 interface BladeHost {
   origin(): { x: number; z: number }; enemies(): readonly Enemy[]; stopped(): boolean;
   radius(enemy: Enemy): number;
@@ -36,6 +38,11 @@ interface BladeHost {
 
 /** Bounded ground-plane weapons. Simulation never depends on atlas loading or quality. */
 export class BladeWeapons {
+  private presentationEpoch = 0;
+  get epoch() { return this.presentationEpoch; }
+  readonly transitions: BladeTransition[] = Array.from({ length: BLADE_LIMITS.transitions }, () => ({
+    active: false, kind: 'turn', x: 0, z: 0, age: 0, size: 0,
+  }));
   readonly casts: BladeCast[] = BLADE_IDS.flatMap(id => Array.from({ length: id === 'thorn-wheel' ? BLADE_LIMITS.wheels : BLADE_LIMITS.tides }, () => ({
     active: false, id, age: 0, duration: 0, x: 0, z: 0, previousX: 0, previousZ: 0,
     dx: 0, dz: 0, distance: 0, returning: false, rotation: 0, radius: 0, bladeRadius: 0,
@@ -44,7 +51,7 @@ export class BladeWeapons {
     hitAt: new Float64Array(BLADE_LIMITS.enemies),
   })));
   readonly wheels: BladePose[] = Array.from({ length: BLADE_LIMITS.wheels * 3 }, () => ({
-    active: false, x: 0, z: 0, previousX: 0, previousZ: 0, angle: 0, size: 0, copied: false,
+    active: false, x: 0, z: 0, previousX: 0, previousZ: 0, angle: 0, size: 0, copied: false, castId: 0,
   }));
   readonly impacts: BladeImpact[] = Array.from({ length: BLADE_LIMITS.impacts }, () => ({ active: false, id: 'thorn-wheel', x: 0, z: 0, age: 0, angle: 0 }));
   readonly telemetry = { casts: 0, hits: 0, returns: 0, denied: 0, outboundHits: 0, returnHits: 0 };
@@ -102,7 +109,8 @@ export class BladeWeapons {
 
   update(dt: number) {
     if (!Number.isFinite(dt) || dt <= 0) return;
-    for (const fx of this.impacts) if (fx.active) { fx.age += dt; if (fx.age >= .32) fx.active = false; }
+    for (const fx of this.impacts) if (fx.active) { fx.age += dt; if (fx.age >= BLADE_LIMITS.impactDuration) fx.active = false; }
+    for (const fx of this.transitions) if (fx.active) { fx.age += dt; if (fx.age >= BLADE_LIMITS.transitionDuration) fx.active = false; }
     for (const pose of this.wheels) pose.active = false;
     if (this.host.stopped()) { this.clear(); return; }
     const origin = this.host.origin();
@@ -130,7 +138,7 @@ export class BladeWeapons {
       const ax = cast.x + Math.cos(before) * radiusAt(oldAge), az = cast.z + Math.sin(before) * radiusAt(oldAge);
       const bx = origin.x + Math.cos(after) * radiusAt(cast.age), bz = origin.z + Math.sin(after) * radiusAt(cast.age);
       Object.assign(pose, { active: true, previousX: ax, previousZ: az, x: bx, z: bz,
-        angle: -cast.age * 3 - phase, size: cast.bladeRadius * 2, copied: cast.copied });
+        angle: -cast.age * 3 - phase, size: cast.bladeRadius * 2, copied: cast.copied, castId: cast.source?.rootId ?? 0 });
       this.contacts(cast, ax, az, bx, bz, origin);
     }
     cast.x = origin.x; cast.z = origin.z; cast.rotation = cast.age * cast.speed;
@@ -154,9 +162,18 @@ export class BladeWeapons {
     cast.rotation = -Math.atan2(cast.dz, cast.dx);
     this.contacts(cast, cast.previousX, cast.previousZ, cast.x, cast.z, origin);
     if (!cast.returning && cast.distance >= cast.range - 1e-8) {
+      this.transition('turn', cast);
       cast.returning = true; this.telemetry.returns++;
     }
-    if (finish || cast.age >= cast.duration) cast.active = false;
+    if (finish || cast.age >= cast.duration) {
+      this.transition(finish ? 'recover' : 'expire', cast); cast.active = false;
+    }
+  }
+
+  private transition(kind: BladeTransition['kind'], cast: BladeCast) {
+    const fx = this.transitions.find(event => !event.active)
+      ?? this.transitions.reduce((oldest, event) => event.age > oldest.age ? event : oldest);
+    Object.assign(fx, { active: true, kind, x: cast.x, z: cast.z, age: 0, size: cast.bladeRadius * 2 });
   }
 
   private contacts(cast: BladeCast, ax: number, az: number, bx: number, bz: number, origin: { x: number; z: number }) {
@@ -184,6 +201,8 @@ export class BladeWeapons {
     }
   }
   clear() {
+    this.presentationEpoch++;
+    for (const fx of this.transitions) fx.active = false;
     for (const cast of this.casts) { cast.active = false; cast.source = undefined; }
     for (const pose of this.wheels) pose.active = false;
     for (const fx of this.impacts) fx.active = false;

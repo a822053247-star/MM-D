@@ -1,4 +1,5 @@
 import { MOONDEW_SHELL } from './special-enemies';
+import { ProjectilePresentation } from './projectile-presentation';
 import { CAPTURE_HEALTH } from './capture-rules';
 import { rangedEnemyRule } from './ranged-enemies';
 import { factoryRelic } from './content/relic-registry';
@@ -109,6 +110,7 @@ export function segmentHit(ax: number, az: number, bx: number, bz: number, x: nu
 }
 
 export class Combat {
+  readonly projectilePresentation = new ProjectilePresentation();
   /** Tick-local feedback flags; no queue, no effect-pool dependency, no gameplay RNG. */
   soundEvents = 0;
   readonly encounters = new EnemyChallenge();
@@ -527,6 +529,7 @@ export class Combat {
   }
 
   reset(ruleset: Ruleset = this.ruleset) {
+    this.projectilePresentation.clear();
     this.blades.reset();
     this.thunder.reset();
     this.frost.reset();
@@ -1225,7 +1228,8 @@ export class Combat {
       if (earliest !== Infinity) {
         shot.active = false;
         const x = shot.previousX + (shot.x - shot.previousX) * earliest, z = shot.previousZ + (shot.z - shot.previousZ) * earliest;
-        this.effect(x, z, 'hit', 'normal', 0, undefined, undefined, shot.attackRules?.impactVfx);
+        if (!this.projectilePresentation.record(shot, victim ? 'impact' : 'wall', x, z, this.elapsed, this.projectileRadius(shot)))
+          this.effect(x, z, 'hit', 'normal', 0, undefined, undefined, shot.attackRules?.impactVfx);
         if (victim) {
           this.damageEnemy(victim, shot.damage, shot.vx / WEAPON.speed, shot.vz / WEAPON.speed, 'player', this.projectileSource(shot));
           (shot.hitIds??=[]).push(victim.id);
@@ -1233,7 +1237,10 @@ export class Combat {
           if((shot.pierces??0)>0){shot.pierces!--;shot.active=true;}
           if (shot.burst && ((shot.generation ?? 0) < BURST_SEED.maxGeneration || shot.relicSource?.copied)) this.burstSeed(shot, victim, x, z);
         }
-      } else if (shot.life <= 0) shot.active = false;
+      } else if (shot.life <= 0) {
+        this.projectilePresentation.record(shot, 'expire', shot.x, shot.z, this.elapsed, this.projectileRadius(shot));
+        shot.active = false;
+      }
     }
 
     this.balanceTelemetry.queuePeak = Math.max(this.balanceTelemetry.queuePeak, this.relicEvents.length);
@@ -1491,6 +1498,7 @@ export class Combat {
   }
 
   clearTransientEffects(preserveRunRelics=false) {
+    this.projectilePresentation.clear();
     this.blades.clear();
     this.thunder.clear();
     this.frost.clear();
@@ -1576,7 +1584,10 @@ export class Combat {
     let target = this.enemies.find(e => e.active && e.id === shot.hopTargetId && e.hp > 0 && e.spawnTime <= 0 && !shot.damageIds?.includes(e.id));
     if (!target || Math.hypot(target.x-shot.hopFromX!,target.z-shot.hopFromZ!) > this.chainRange(shot) || this.covered(shot.x,shot.z,target.x,target.z)) {
       target = this.nextHop(shot,shot.x,shot.z);
-      if (!target) { shot.active = false; shot.hopTargetId = 0; return; }
+      if (!target) {
+        this.projectilePresentation.record(shot, 'expire', shot.x, shot.z, this.elapsed, this.projectileRadius(shot));
+        shot.active = false; shot.hopTargetId = 0; return;
+      }
       // Retargeting consumes no additional jump and starts from current position.
       shot.hopTargetId = target.id; shot.hopElapsed = 0; shot.hopFromX = shot.x; shot.hopFromZ = shot.z;
     }
@@ -1595,7 +1606,13 @@ export class Combat {
 
   /** Swept collision; one damage ledger includes primary and splash victims. */
   private elementalHit(shot: Projectile) {
-    if(shot.outboundSpent){ if(shot.life<=0&&!this.relicBehaviors.preserveLeaf(shot))shot.active=false; return; }
+    if(shot.outboundSpent){
+      if(shot.life<=0&&!this.relicBehaviors.preserveLeaf(shot)) {
+        this.projectilePresentation.record(shot, 'expire', shot.x, shot.z, this.elapsed, this.projectileRadius(shot));
+        shot.active=false;
+      }
+      return;
+    }
     const ids = shot.hitIds ?? (shot.hitIds = []);
     const damaged = shot.damageIds ?? (shot.damageIds = []);
     const chain = !!(shot.attackRules?.pairId&&WEAPON_PAIR_RECIPES[shot.attackRules.pairId].chain&&shot.attackRules.pairChain)||shot.fusionIds?.includes('chain-bubble') || shot.fusionIds?.includes('jump-thorn') || shot.relicSource?.kind === 'bubble-spore';
@@ -1614,13 +1631,14 @@ export class Combat {
       if (!enemy.active || enemy.captureLocked) continue;
       const x = shot.previousX + (shot.x - shot.previousX) * t, z = shot.previousZ + (shot.z - shot.previousZ) * t;
       ids.push(enemy.id); damaged.push(enemy.id);
+      const presented = this.projectilePresentation.record(shot, 'impact', x, z, this.elapsed, radius);
       this.damageEnemy(enemy, shot.damage, shot.vx / WEAPON.speed, shot.vz / WEAPON.speed, 'player', this.projectileSource(shot));
       this.relicBehaviors.projectileHit(shot,enemy,x,z);
       const fusionId = shot.relicSource?.kind === 'bubble-spore' ? 'chain-bubble' : shot.fusionIds?.[0];
       const deep = shot.fusionIds?.includes('deep-bubble'), waterChain = shot.fusionIds?.includes('chain-bubble');
       const rules = shot.attackRules ?? resolveAttackRules(shot.attackId ?? 'bubble', [], 1);
       // Visual anchor only. AoE and direct damage retain the actual swept contact (x, z).
-      if (shot.attackId !== 'frost-crystal' && !isDreamWeapon(shot.attackId)) this.effect(x, z, shot.attackId === 'bubble' ? 'water' : 'thorn', enemy.kind,
+      if (!presented && shot.attackId !== 'frost-crystal' && !isDreamWeapon(shot.attackId)) this.effect(x, z, shot.attackId === 'bubble' ? 'water' : 'thorn', enemy.kind,
         (deep ? DEEP_BUBBLE.radius : waterChain ? CHAIN_BUBBLE.radius : .6) * rules.areaMultiplier, fusionId,
         shot.attackId === 'bubble' ? enemy : undefined, rules.impactVfx);
       if(shot.attackRules?.pairId)this.pairHit(shot,enemy,x,z);
@@ -1658,7 +1676,12 @@ export class Combat {
       if ((shot.pierces ?? 0) > 0) { shot.pierces = (shot.pierces ?? 0) - 1; continue; }
       if(!this.relicBehaviors.preserveLeaf(shot))shot.active = false; return;
     }
-    if (wall !== Infinity || (!shot.hopTargetId && shot.life <= 0)) { shot.active = false; shot.hopTargetId = 0; }
+    if (wall !== Infinity || (!shot.hopTargetId && shot.life <= 0)) {
+      const t = wall !== Infinity ? wall : 1;
+      this.projectilePresentation.record(shot, wall !== Infinity ? 'wall' : 'expire',
+        shot.previousX + (shot.x - shot.previousX) * t, shot.previousZ + (shot.z - shot.previousZ) * t, this.elapsed, radius);
+      shot.active = false; shot.hopTargetId = 0;
+    }
   }
 
   private pairHit(shot:Projectile,enemy:Enemy,x:number,z:number){

@@ -3,11 +3,10 @@ import { clampToRectangularBoundary, ARENA_HALF_EXTENT, PLAYER_COLLISION_RADIUS 
 import type { SkillId } from './core/progression';
 import { PartySystem } from './core/party';
 import { RunFlow } from './core/run-flow';
+import { CAMPAIGN_SKILLS } from './content/enabled';
 
 export type Mode = 'menu' | 'playing' | 'paused' | 'upgrade' | 'result' | 'rest' | 'shop' | 'preparing';
 export type RunKind = 'trial' | 'campaign';
-const CAMPAIGN_SKILLS = new Set<SkillId>(['damage', 'haste', 'multishot', 'vitality', 'movement', 'range',
-  'orbit', 'shockwave', 'spark-weapon', 'flame-sweep-weapon', 'leaf-weapon', 'shatter-ring', 'dream-dart-weapon', 'sakura-echo']);
 export const FIRST_RUN_SECONDS = 180;
 export const FIXED_STEP = 1 / 60;
 export const OBSTACLES = [
@@ -84,7 +83,7 @@ export class FirstRun {
     }
     this.dashTime = .16; this.dashCooldown = 3;
   }
-  step(dt: number, input: { x: number; z: number }) {
+  step(dt: number, input: { x: number; z: number }, beforeCombat?: () => boolean) {
     if (dt <= 0 || dt > .1) return;
     if ((this.mode === 'rest' || this.mode === 'shop') && this.run) {
       this.run.updateRest(dt, this.combat); this.syncRun(); return;
@@ -97,6 +96,8 @@ export class FirstRun {
       if (this.syncRun()) return;
       this.run.prepare(this.combat, this.player);
     }
+    // Boundary resolution can grant new content before this same tick's attacks.
+    if (beforeCombat && !beforeCombat()) return;
     this.dashCooldown = Math.max(0, this.dashCooldown - dt);
     const length = Math.max(1, Math.hypot(input.x, input.z));
     const speed = (this.run ? 4.6 : 5.2) * this.combat.stats.moveMultiplier;
@@ -154,7 +155,10 @@ export class FirstRun {
       enemies: this.combat.enemies.filter(e => e.active).length, offers: [...this.combat.progression.offers],
       player: { ...this.player }, victory: this.victory, dashCooldown: this.dashCooldown,
       coins: this.run?.coins ?? 0, phase: this.run?.phase, failure: this.run?.failure,
-      skillEffects: { ice: { ...this.combat.iceSkills.telemetry }, dream: { ...this.combat.dream.telemetry } },
+      skillEffects: { ice: { ...this.combat.iceSkills.telemetry }, dream: { ...this.combat.dream.telemetry },
+        water: { ...this.combat.waterAoe.telemetry }, thunder: { ...this.combat.thunder.telemetry },
+        frost: { ...this.combat.frost.telemetry }, blades: { ...this.combat.blades.telemetry },
+        position: { ...this.combat.positionAoe.telemetry }, areaAttacks: { ...this.combat.areaAttacks.telemetry } },
       boss: this.combat.encounters.bossState, bossHP: this.combat.encounters.boss?.hp ?? 0,
       shop: this.run?.shop ? { token: this.run.shop.token, items: this.run.shop.items.map(item => ({ ...item })) } : undefined };
   }

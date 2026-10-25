@@ -3,7 +3,7 @@ import type { RelicDamageSource } from './relics';
 
 export const WATER_AOE_IDS = ['azure-burst', 'star-tide', 'still-sea', 'returning-ring'] as const;
 export type WaterSkill = typeof WATER_AOE_IDS[number];
-export const WATER_LIMITS = { enemies: 256, burst: 2, pulse: 2, fields: 2, aura: 1, waves: 3, tick: .5 } as const;
+export const WATER_LIMITS = { enemies: 256, burst: 2, pulse: 2, fields: 2, aura: 1, waves: 3, impacts: 64, tick: .5 } as const;
 export const WATER_NAMES: Record<WaterSkill, string> = {
   'azure-burst': '苍蓝震爆', 'star-tide': '星潮脉冲', 'still-sea': '静海法阵', 'returning-ring': '回流水环',
 };
@@ -25,6 +25,7 @@ export interface WaterCast {
   radius: number; damage: number; duration: number; nextTick: number; waveCount: number;
   detonated: boolean; hits: Int32Array; waves: Wave[]; source?: RelicDamageSource;
 }
+export interface WaterImpact { active: boolean; kind: WaterSkill; x: number; z: number; age: number; seed: number }
 interface WaterHost {
   enemies(): readonly Enemy[];
   origin(): { x: number; z: number };
@@ -38,6 +39,9 @@ interface WaterHost {
 
 /** Pure fixed-step simulation: one-shot disk, swept annuli, stationary tick field, following aura. */
 export class WaterAoe {
+  readonly impacts: WaterImpact[] = Array.from({ length: WATER_LIMITS.impacts }, () => ({
+    active: false, kind: 'azure-burst', x: 0, z: 0, age: 0, seed: 0,
+  }));
   readonly casts: WaterCast[] = WATER_AOE_IDS.flatMap(kind => Array.from({ length:
     kind === 'azure-burst' ? WATER_LIMITS.burst : kind === 'star-tide' ? WATER_LIMITS.pulse : kind === 'still-sea' ? WATER_LIMITS.fields : WATER_LIMITS.aura,
   }, () => ({ active: false, kind, castId: 0, x: 0, z: 0, age: 0, radius: 0, damage: 0, duration: 0,
@@ -83,6 +87,9 @@ export class WaterAoe {
 
   update(dt: number, ranks: Partial<Record<WaterSkill, number>>, multiplier: number) {
     if (!Number.isFinite(dt) || dt <= 0) return;
+    for (const impact of this.impacts) if (impact.active) {
+      impact.age += dt; if (impact.age >= .28) impact.active = false;
+    }
     const killsBefore = this.telemetry.kills;
     this.elapsed += dt;
     for (const kind of WATER_AOE_IDS) {
@@ -152,11 +159,17 @@ export class WaterAoe {
     }
   }
   private hit(cast: WaterCast, enemy: Enemy, source: RelicDamageSource) {
+    const x = enemy.x, z = enemy.z;
     this.host.damage(enemy, cast.damage * (enemy.rank === 'boss' ? (cast.kind === 'azure-burst' ? .55 : cast.kind === 'star-tide' ? .50 : .45) : enemy.rank === 'elite' ? .7 : 1), source);
+    // Presentation-only pool; saturation never skips the damage above.
+    const impact = this.impacts.find(event => !event.active)
+      ?? this.impacts.reduce((oldest, event) => event.age > oldest.age ? event : oldest);
+    Object.assign(impact, { active: true, kind: cast.kind, x, z, age: 0, seed: enemy.id + cast.castId });
     this.telemetry.hits++;
     if (enemy.hp <= 0) this.telemetry.kills++;
   }
   clear() {
+    for (const impact of this.impacts) impact.active = false;
     for (const cast of this.casts) { cast.active = false; cast.source = undefined; cast.hits.fill(0); for (const wave of cast.waves) wave.source = undefined; }
     this.fieldIds.fill(0); this.fieldReady.fill(0);
   }

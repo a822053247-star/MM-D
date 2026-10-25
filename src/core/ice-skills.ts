@@ -4,7 +4,7 @@ import type { RelicDamageSource } from './relics';
 export const ICE_SKILL_IDS = ['shatter-ring', 'glacier-trail'] as const;
 export type IceSkill = typeof ICE_SKILL_IDS[number];
 export const ICE_SKILL_NAMES = { 'shatter-ring': '碎冰震环', 'glacier-trail': '冰川滑痕' } as const;
-export const ICE_LIMITS = { rings: 2, trails: 24, stride: 1, tick: .5, ringDuration: .6 } as const;
+export const ICE_LIMITS = { rings: 2, trails: 24, stride: 1, tick: .5, ringDuration: .6, trailHalfLength: .65 } as const;
 export function iceSkillStats(id: IceSkill, rank: number) {
   const n = Math.max(0, Math.min(4, Math.floor(rank) - 1));
   return id === 'shatter-ring'
@@ -101,7 +101,7 @@ export class IceSkills {
           if (!patch.active || patch.born > this.nextTick || patch.born + patch.duration < this.nextTick - 1e-8) continue;
           const dx = enemy.x - patch.x, dz = enemy.z - patch.z, c = Math.cos(patch.angle), s = Math.sin(patch.angle);
           const along = dx * c + dz * s, across = -dx * s + dz * c;
-          if (Math.hypot(Math.max(0, Math.abs(along) - .65), across) > patch.radius + this.host.radius(enemy)
+          if (Math.hypot(Math.max(0, Math.abs(along) - ICE_LIMITS.trailHalfLength), across) > patch.radius + this.host.radius(enemy)
             || this.host.covered(patch.x, patch.z, enemy.x, enemy.z)) continue;
           if (!best || patch.damage > best.damage) best = patch;
         }

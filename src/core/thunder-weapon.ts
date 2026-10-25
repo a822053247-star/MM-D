@@ -1,7 +1,8 @@
 import type { Enemy, WeaponSnapshot } from './combat';
 import type { RelicDamageSource } from './relics';
 
-export const THUNDER_LIMITS = { casts: 4, links: 32, impacts: 32, warning: .12, hopDelay: .09, decay: .80 } as const;
+export const THUNDER_LIMITS = { casts: 4, links: 32, impacts: 32, warning: .12, hopDelay: .09, decay: .80,
+  linkDuration: .26, impactDuration: .34 } as const;
 export function thunderStats(level: number) {
   const n = Math.max(0, Math.min(4, Math.floor(level) - 1));
   return { targets: [3, 3, 4, 5, 6][n], hopRange: 3.2 + n * .2, interval: 1.25 - n * .04, decay: THUNDER_LIMITS.decay + n * .02 };
@@ -51,9 +52,9 @@ export class ThunderWeapon {
   update(dt: number) {
     if (!Number.isFinite(dt) || dt <= 0) return;
     if (this.host.stopped()) { this.clear(); return; }
-    for (const link of this.links) if (link.active) { link.age += dt; if (link.age >= .26) link.active = false; }
+    for (const link of this.links) if (link.active) { link.age += dt; if (link.age >= THUNDER_LIMITS.linkDuration) link.active = false; }
     for (const impact of this.impacts) if (impact.active) {
-      impact.age += dt; if (impact.age >= .34) { impact.active = false; continue; }
+      impact.age += dt; if (impact.age >= THUNDER_LIMITS.impactDuration) { impact.active = false; continue; }
       const enemy = this.host.enemies().find(e => e.active && e.id === impact.enemyId);
       if (enemy) { impact.x = enemy.x; impact.z = enemy.z; }
     }
@@ -69,10 +70,10 @@ export class ThunderWeapon {
         // Backdate new visual events when one coarse step resolves several hops.
         const age = Math.max(0, cast.age - Math.max(previousAge, cast.nextAt));
         const link = this.links.find(l => !l.active);
-        if (link && age < .26) Object.assign(link, { active: true, age, x: cast.x, z: cast.z,
+        if (link && age < THUNDER_LIMITS.linkDuration) Object.assign(link, { active: true, age, x: cast.x, z: cast.z,
           tx: enemy.x, tz: enemy.z, variant: (this.telemetry.casts + cast.hops) % 4 });
         const impact = this.impacts.find(p => !p.active);
-        if (impact && age < .34) Object.assign(impact, { active: true, age, x: enemy.x, z: enemy.z, enemyId: enemy.id });
+        if (impact && age < THUNDER_LIMITS.impactDuration) Object.assign(impact, { active: true, age, x: enemy.x, z: enemy.z, enemyId: enemy.id });
         cast.visited.add(enemy.id); cast.x = enemy.x; cast.z = enemy.z;
         const damage = cast.damage * (cast.decay * cast.source!.rules.chainDecay) ** cast.hops;
         cast.hops++; cast.nextAt += THUNDER_LIMITS.hopDelay;
