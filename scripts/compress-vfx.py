@@ -168,7 +168,7 @@ for effect in report['effects']:
 
 每帧记录源尺寸、裁边偏移、图集位置和边缘外扩。全尺寸无损PNG逐帧重建检查透明度和可见RGB均一致。紧凑版本损失分辨率，WebP Q90还会改变颜色；报告中的MAE仅衡量编码相对同尺寸样板的误差，不代表相对原图或玩家主观评价。
 
-仅选定的火焰无损PNG进入`resources/first-play/vfx/`，其余候选、GIF、对比图与原图均不进入部署包。未运行浏览器、模拟器或真机测试，WebP仅输出候选；尚未接入ASTC/ETC2。
+当前发布使用火焰无损PNG及`pixel-vfx-manifest.ts`中明确启用的像素PNG；其余候选、GIF、对比图与原图均不进入部署包。未运行浏览器、模拟器或真机测试，WebP仅输出候选；尚未接入ASTC/ETC2。
 
 `report.json`保存精确字节数、哈希、图集尺寸和RGBA估算。RGBA估算不含mipmap与解码副本，PNG/WebP文件压小不等于显存同比例下降。GIF用于观察帧序，梦系实际播放仍依据cast.duration归一化时间。
 ''', 'utf-8')

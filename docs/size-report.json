@@ -1,10 +1,10 @@
 {
   "root": "dist",
   "unit": "MiB (1048576 bytes)",
-  "mainBytes": 909981,
-  "firstPlayBytes": 8351565,
+  "mainBytes": 920233,
+  "firstPlayBytes": 8472146,
   "packages": {
-    "first-play/": 7441584
+    "first-play/": 7551913
   },
   "files": [
     {
@@ -56,12 +56,24 @@
       "bytes": 2359352
     },
     {
+      "path": "first-play/vfx/dream-bloom.png",
+      "bytes": 53277
+    },
+    {
+      "path": "first-play/vfx/dream-dart.png",
+      "bytes": 20914
+    },
+    {
       "path": "first-play/vfx/flame-sweep.png",
       "bytes": 25286
     },
     {
+      "path": "first-play/vfx/ice-ring.png",
+      "bytes": 36138
+    },
+    {
       "path": "game.js",
-      "bytes": 908501
+      "bytes": 918753
     },
     {
       "path": "game.json",
@@ -76,8 +88,8 @@
       "bytes": 1081
     }
   ],
-  "mainMiB": 0.868,
-  "firstPlayMiB": 7.965,
+  "mainMiB": 0.878,
+  "firstPlayMiB": 8.08,
   "limits": {
     "mainBytes": 3145728,
     "firstPlayBytes": 10485760

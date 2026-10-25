@@ -16,7 +16,7 @@ export const OBSTACLES = [
   { x: -22, z: -17, radius: 1 }, { x: 23, z: 18, radius: 1.1 },
 ];
 
-/** Reuses the upstream combat, XP, targeting, pools and eight classic upgrades. */
+/** Practice and campaign share the upstream combat, progression and bounded pools. */
 export class FirstRun {
   readonly combat: Combat;
   readonly player = { x: 0, z: 0 };

@@ -26,7 +26,7 @@
       "id": "dream-dart", "title": "Dream dart", "source": "art-source/vfx/dream-dart.png",
       "original": "assets/dream/dart.png",
       "frames": [[35,170,590,440],[630,140,620,510],[0,610,627,520],[640,680,610,420]],
-      "durationsMs": [80,80,80,80], "timeline": "projectile age frame loop; original authored UV windows",
+      "durationsMs": [100,100,100,100], "timeline": "floor(projectile.age * 10) % 4; original authored UV windows",
       "trim": true, "compactScale": 0.5, "ship": false, "runtime": true
     }
   ]

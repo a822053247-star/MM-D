@@ -45,9 +45,9 @@ class AtlasBatch {
       shader.fragmentShader = 'varying float vEffectAlpha; varying float vEffectHole; varying vec2 vEffectUV;\n' + shader.fragmentShader;
       shader.fragmentShader = shader.fragmentShader.replace('#include <alphatest_fragment>', `
         diffuseColor.a *= vEffectAlpha;
-        ${kind === 'ice' ? `float radius = length(vEffectUV - vec2(.5));
-          diffuseColor.a *= smoothstep(vEffectHole, vEffectHole + .025, radius)
-            * (1.0 - smoothstep(.47, .5, radius))
+        ${kind === 'ice' ? `float effectRadius = length(vEffectUV - vec2(.5));
+          diffuseColor.a *= smoothstep(vEffectHole, vEffectHole + .025, effectRadius)
+            * (1.0 - smoothstep(.47, .5, effectRadius))
             * smoothstep(.18, .42, max(diffuseColor.r, max(diffuseColor.g, diffuseColor.b)));` : `float edge = min(min(vEffectUV.x, 1.0 - vEffectUV.x), min(vEffectUV.y, 1.0 - vEffectUV.y));
           diffuseColor.a *= smoothstep(0.0, .075, edge);
           ${kind === 'flower' ? 'diffuseColor.a *= mix(.68, 1.0, smoothstep(.10, .30, length(vEffectUV - vec2(.5))));' : ''}`}

@@ -372,10 +372,10 @@ export const PIXEL_VFX = {
       }
     ],
     "durationsMs": [
-      80,
-      80,
-      80,
-      80
+      100,
+      100,
+      100,
+      100
     ]
   }
 } as const;

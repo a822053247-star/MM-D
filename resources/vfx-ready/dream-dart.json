@@ -86,12 +86,12 @@
   ],
   "frameCount": 4,
   "durationsMs": [
-    80,
-    80,
-    80,
-    80
+    100,
+    100,
+    100,
+    100
   ],
-  "timeline": "projectile age frame loop; original authored UV windows",
+  "timeline": "floor(projectile.age * 10) % 4; original authored UV windows",
   "scale": 0.3062200956937799,
   "maxFrameEdge": 192,
   "paletteLimit": 64,

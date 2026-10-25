@@ -1,5 +1,5 @@
 import { DouyinPlatform } from './platform';
-import { FirstRun, FIXED_STEP } from './model';
+import { FirstRun, FIXED_STEP, type Mode } from './model';
 import { HUD } from './hud';
 import { GameView } from './view';
 import { TouchInput } from './input';
@@ -19,6 +19,7 @@ function boot() {
   let last = 0, accumulator = 0, hudAge = Infinity, lastVersion = -1, lastMode = model.mode;
   let telemetryAge = 0;
   let preparation = 0;
+  let preparationInterrupted = false;
   let pendingSkillAction: { skills: readonly string[]; returnMode: 'upgrade' | 'shop' | 'playing'; perform: () => void } | undefined;
   const frameTimes: number[] = [];
   // Read-only diagnostics for IDE/device verification. No state mutation or test controls.
@@ -67,22 +68,26 @@ function boot() {
     });
   tt.onTouchStart(input.start); tt.onTouchMove(input.move); tt.onTouchEnd(input.end); tt.onTouchCancel(input.cancel);
   function prepareSkillAction(skills: readonly string[], perform: () => void, returnMode: 'upgrade' | 'shop' | 'playing') {
-    if (skills.every(skill => view.skillVfx.ready(skill))) { perform(); return; }
+    if (skills.every(skill => view.skillVfx.ready(skill))) {
+      preparation++; pendingSkillAction = undefined; model.preparationFailed = false;
+      if (model.mode === 'preparing') model.setMode(returnMode);
+      perform(); return;
+    }
     const epoch = ++preparation;
-    pendingSkillAction = { skills, perform, returnMode }; model.preparationFailed = false;
+    pendingSkillAction = { skills, perform, returnMode }; model.preparationFailed = false; preparationInterrupted = false;
     model.setMode('preparing'); input.reset(); accumulator = 0; hudAge = Infinity; music.setActive(false);
     void view.skillVfx.prepare(skills).then(() => {
       if (epoch !== preparation || model.mode !== 'preparing') return;
       pendingSkillAction = undefined; model.setMode(returnMode); perform();
-      if (hidden || contextLost || platform.info.windowHeight > platform.info.windowWidth) model.pause();
+      if (preparationInterrupted || hidden || contextLost || platform.info.windowHeight > platform.info.windowWidth) model.pause();
       input.reset(); accumulator = 0; last = 0; hudAge = Infinity;
-      music.setActive(!hidden && !contextLost && model.mode === 'playing');
+      music.setActive(!hidden && !contextLost && (model.mode as Mode) === 'playing');
     }).catch(error => {
       if (epoch !== preparation || model.mode !== 'preparing') return;
       model.preparationFailed = true; hudAge = Infinity; console.warn('技能资源准备失败，可重试', error);
     });
   }
-  const suspend = () => { model.pause(); input.reset(); music.setActive(false); accumulator = 0; last = 0; hudAge = Infinity; };
+  const suspend = () => { if (model.mode === 'preparing') preparationInterrupted = true; model.pause(); input.reset(); music.setActive(false); accumulator = 0; last = 0; hudAge = Infinity; };
   tt.onHide(() => { hidden = true; suspend(); });
   tt.onShow(() => { hidden = false; last = 0; resize(); });
   tt.onAudioInterruptionBegin?.(suspend);
