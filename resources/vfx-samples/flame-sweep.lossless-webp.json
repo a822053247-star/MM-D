@@ -1,0 +1,67 @@
+{
+  "path": "resources/vfx-samples/flame-sweep.lossless-webp.webp",
+  "bytes": 23080,
+  "width": 396,
+  "height": 132,
+  "rgbaBytes": 209088,
+  "scale": 1,
+  "frames": [
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        2,
+        2,
+        128,
+        128
+      ]
+    },
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        134,
+        2,
+        128,
+        128
+      ]
+    },
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        266,
+        2,
+        128,
+        128
+      ]
+    }
+  ],
+  "visibleRgbMAE": 0.0,
+  "alphaExact": true,
+  "sha256": "80a78f4f98b5765ccd3d70773c337b8cf86cdb93fe487f51332c163cc2f61f76"
+}

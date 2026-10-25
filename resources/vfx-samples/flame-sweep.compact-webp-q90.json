@@ -1,0 +1,67 @@
+{
+  "path": "resources/vfx-samples/flame-sweep.compact-webp-q90.webp",
+  "bytes": 18464,
+  "width": 396,
+  "height": 132,
+  "rgbaBytes": 209088,
+  "scale": 1,
+  "frames": [
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        2,
+        2,
+        128,
+        128
+      ]
+    },
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        134,
+        2,
+        128,
+        128
+      ]
+    },
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        266,
+        2,
+        128,
+        128
+      ]
+    }
+  ],
+  "visibleRgbMAE": 12.0938,
+  "alphaExact": true,
+  "sha256": "eaaf07ec1b6a3e982f91b97a1518ee70d999a0b9ea6d6923dee006674f537e2b"
+}

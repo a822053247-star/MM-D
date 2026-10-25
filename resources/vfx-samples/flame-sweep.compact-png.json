@@ -1,0 +1,67 @@
+{
+  "path": "resources/vfx-samples/flame-sweep.compact-png.png",
+  "bytes": 25286,
+  "width": 396,
+  "height": 132,
+  "rgbaBytes": 209088,
+  "scale": 1,
+  "frames": [
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        2,
+        2,
+        128,
+        128
+      ]
+    },
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        134,
+        2,
+        128,
+        128
+      ]
+    },
+    {
+      "sourceSize": [
+        128,
+        128
+      ],
+      "trim": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "rect": [
+        266,
+        2,
+        128,
+        128
+      ]
+    }
+  ],
+  "visibleRgbMAE": 0.0,
+  "alphaExact": true,
+  "sha256": "3888c89f42a0d3093fb7012d8b126645fa30f259a1ee1188bf57ee79bf54823a"
+}

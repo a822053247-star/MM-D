@@ -1,0 +1,168 @@
+{
+  "id": "ice-ring",
+  "path": "resources/vfx-ready/ice-ring.png",
+  "source": "art-source/vfx/ice-ring.png",
+  "original": "assets/frost/shatter-ring.png",
+  "sourceSha256": "0bd3efe11af1093e319d51505a911a951f3440cf25939c2621d440668327c1c0",
+  "sha256": "97f11a7495f6a970d3a6f6148e7f1ac53cebe0712e5335fac89c59be411d0c86",
+  "sourceBytes": 2080070,
+  "bytes": 36138,
+  "width": 588,
+  "height": 392,
+  "rgbaBytes": 921984,
+  "frames": [
+    {
+      "rect": [
+        2,
+        2,
+        192,
+        192
+      ],
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "rect": [
+        198,
+        2,
+        192,
+        192
+      ],
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "rect": [
+        394,
+        2,
+        192,
+        192
+      ],
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "rect": [
+        2,
+        198,
+        192,
+        192
+      ],
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "rect": [
+        198,
+        198,
+        192,
+        192
+      ],
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "rect": [
+        394,
+        198,
+        192,
+        192
+      ],
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ]
+    }
+  ],
+  "frameCount": 6,
+  "durationsMs": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "timeline": "floor(cast.age / 0.1), max frame 5",
+  "scale": 0.375,
+  "maxFrameEdge": 192,
+  "paletteLimit": 64,
+  "actualPaletteEntries": 64,
+  "alphaQuantizationStep": 32,
+  "dither": false,
+  "shipped": true,
+  "status": "Runtime atlas",
+  "candidates": [
+    {
+      "edge": 192,
+      "colors": 64,
+      "bytes": 36138
+    },
+    {
+      "edge": 128,
+      "colors": 64,
+      "bytes": 19214
+    },
+    {
+      "edge": 128,
+      "colors": 32,
+      "bytes": 15246
+    },
+    {
+      "edge": 96,
+      "colors": 64,
+      "bytes": 12098
+    },
+    {
+      "edge": 96,
+      "colors": 32,
+      "bytes": 9637
+    }
+  ]
+}

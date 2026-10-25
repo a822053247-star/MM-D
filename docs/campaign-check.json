@@ -1,0 +1,9 @@
+{
+  "verification": "Headless deterministic shortcut; not a natural full-length or real-device run",
+  "passed": [
+    "five wave boundaries, rest, purchase, stale token rejection, Boss entry",
+    "automatic flame sweep kills Boss; death transition resolves victory",
+    "restart clears run and wallet; Boss timeout fails",
+    "reward pool contains only supported content"
+  ]
+}

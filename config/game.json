@@ -1,0 +1,6 @@
+{
+  "deviceOrientation": "landscape",
+  "showStatusBar": false,
+  "networkTimeout": { "request": 15000, "downloadFile": 15000 },
+  "subPackages": [{ "name": "first-play", "root": "first-play/" }]
+}

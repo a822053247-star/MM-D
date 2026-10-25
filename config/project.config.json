@@ -1,0 +1,6 @@
+{
+  "appid": "tt29225f9fb75cc59502",
+  "projectname": "幻兽幸存者·抖音首局验证",
+  "miniprogramRoot": "./",
+  "setting": { "es6": false, "minified": true, "urlCheck": true }
+}

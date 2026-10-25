@@ -1,0 +1,1801 @@
+{
+  "unit": "bytes; rgbaBytes excludes mipmaps, decoded copies and engine overhead",
+  "effects": [
+    {
+      "id": "flame-sweep",
+      "source": "art-source/vfx/flame-sweep.png",
+      "original": "assets/pixel/skills/yanrong/fire-effects-sheet.normalized.png",
+      "sourceSha256": "9c23b5b6bffb18f6c6f78a1f699ef52377b7f4aff402ee4fe5ba27da141b2313",
+      "sourceBytes": 157110,
+      "sourceDimensions": [
+        512,
+        512
+      ],
+      "sourceRgbaBytes": 1048576,
+      "frameCount": 3,
+      "durationsMs": [
+        25,
+        45,
+        160
+      ],
+      "timeline": "balanced preset; combat damage remains unchanged",
+      "variants": {
+        "lossless-png": {
+          "path": "resources/vfx-samples/flame-sweep.lossless-png.png",
+          "bytes": 25286,
+          "width": 396,
+          "height": 132,
+          "rgbaBytes": 209088,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                2,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                134,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                266,
+                2,
+                128,
+                128
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "3888c89f42a0d3093fb7012d8b126645fa30f259a1ee1188bf57ee79bf54823a"
+        },
+        "lossless-webp": {
+          "path": "resources/vfx-samples/flame-sweep.lossless-webp.webp",
+          "bytes": 23080,
+          "width": 396,
+          "height": 132,
+          "rgbaBytes": 209088,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                2,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                134,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                266,
+                2,
+                128,
+                128
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "80a78f4f98b5765ccd3d70773c337b8cf86cdb93fe487f51332c163cc2f61f76"
+        },
+        "compact-png": {
+          "path": "resources/vfx-samples/flame-sweep.compact-png.png",
+          "bytes": 25286,
+          "width": 396,
+          "height": 132,
+          "rgbaBytes": 209088,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                2,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                134,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                266,
+                2,
+                128,
+                128
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "3888c89f42a0d3093fb7012d8b126645fa30f259a1ee1188bf57ee79bf54823a"
+        },
+        "compact-webp": {
+          "path": "resources/vfx-samples/flame-sweep.compact-webp.webp",
+          "bytes": 23080,
+          "width": 396,
+          "height": 132,
+          "rgbaBytes": 209088,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                2,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                134,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                266,
+                2,
+                128,
+                128
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "80a78f4f98b5765ccd3d70773c337b8cf86cdb93fe487f51332c163cc2f61f76"
+        },
+        "compact-webp-q90": {
+          "path": "resources/vfx-samples/flame-sweep.compact-webp-q90.webp",
+          "bytes": 18464,
+          "width": 396,
+          "height": 132,
+          "rgbaBytes": 209088,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                2,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                134,
+                2,
+                128,
+                128
+              ]
+            },
+            {
+              "sourceSize": [
+                128,
+                128
+              ],
+              "trim": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "rect": [
+                266,
+                2,
+                128,
+                128
+              ]
+            }
+          ],
+          "visibleRgbMAE": 12.0938,
+          "alphaExact": true,
+          "sha256": "eaaf07ec1b6a3e982f91b97a1518ee70d999a0b9ea6d6923dee006674f537e2b"
+        }
+      }
+    },
+    {
+      "id": "ice-ring",
+      "source": "art-source/vfx/ice-ring.png",
+      "original": "assets/frost/shatter-ring.png",
+      "sourceSha256": "0bd3efe11af1093e319d51505a911a951f3440cf25939c2621d440668327c1c0",
+      "sourceBytes": 2080070,
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "sourceRgbaBytes": 6291456,
+      "frameCount": 6,
+      "durationsMs": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timeline": "floor(cast.age / 0.1), max frame 5",
+      "variants": {
+        "lossless-png": {
+          "path": "resources/vfx-samples/ice-ring.lossless-png.png",
+          "bytes": 1957012,
+          "width": 1548,
+          "height": 1032,
+          "rgbaBytes": 6390144,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                2,
+                512,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                9,
+                512,
+                503
+              ],
+              "rect": [
+                518,
+                2,
+                512,
+                503
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                498,
+                512
+              ],
+              "rect": [
+                1034,
+                2,
+                498,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                518,
+                512,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                518,
+                518,
+                512,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                1034,
+                518,
+                512,
+                512
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "8e1e05d196a9c82b55823bc10452e3c5d2f92f56ca4c58b92b91cf54f670b948"
+        },
+        "lossless-webp": {
+          "path": "resources/vfx-samples/ice-ring.lossless-webp.webp",
+          "bytes": 1594174,
+          "width": 1548,
+          "height": 1032,
+          "rgbaBytes": 6390144,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                2,
+                512,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                9,
+                512,
+                503
+              ],
+              "rect": [
+                518,
+                2,
+                512,
+                503
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                498,
+                512
+              ],
+              "rect": [
+                1034,
+                2,
+                498,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                518,
+                512,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                518,
+                518,
+                512,
+                512
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                1034,
+                518,
+                512,
+                512
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "020c5e891dbf2f3334f9e40db9e13c88f1eaaca92ba52dac409fd5250b14e2f7"
+        },
+        "compact-png": {
+          "path": "resources/vfx-samples/ice-ring.compact-png.png",
+          "bytes": 621176,
+          "width": 780,
+          "height": 520,
+          "rgbaBytes": 1622400,
+          "scale": 0.5,
+          "frames": [
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                2,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                9,
+                512,
+                503
+              ],
+              "rect": [
+                262,
+                2,
+                256,
+                252
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                498,
+                512
+              ],
+              "rect": [
+                522,
+                2,
+                249,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                262,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                262,
+                262,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                522,
+                262,
+                256,
+                256
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "8233251f492fd6efab301c905cf43fbed0edf2e3b88859539a329f943a1aabd2"
+        },
+        "compact-webp": {
+          "path": "resources/vfx-samples/ice-ring.compact-webp.webp",
+          "bytes": 505458,
+          "width": 780,
+          "height": 520,
+          "rgbaBytes": 1622400,
+          "scale": 0.5,
+          "frames": [
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                2,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                9,
+                512,
+                503
+              ],
+              "rect": [
+                262,
+                2,
+                256,
+                252
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                498,
+                512
+              ],
+              "rect": [
+                522,
+                2,
+                249,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                262,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                262,
+                262,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                522,
+                262,
+                256,
+                256
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "cd30ab57640fec4190164a0e944353283c968014fd24c58a57c2d1eccda2b8b4"
+        },
+        "compact-webp-q90": {
+          "path": "resources/vfx-samples/ice-ring.compact-webp-q90.webp",
+          "bytes": 223190,
+          "width": 780,
+          "height": 520,
+          "rgbaBytes": 1622400,
+          "scale": 0.5,
+          "frames": [
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                2,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                9,
+                512,
+                503
+              ],
+              "rect": [
+                262,
+                2,
+                256,
+                252
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                498,
+                512
+              ],
+              "rect": [
+                522,
+                2,
+                249,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                2,
+                262,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                262,
+                262,
+                256,
+                256
+              ]
+            },
+            {
+              "sourceSize": [
+                512,
+                512
+              ],
+              "trim": [
+                0,
+                0,
+                512,
+                512
+              ],
+              "rect": [
+                522,
+                262,
+                256,
+                256
+              ]
+            }
+          ],
+          "visibleRgbMAE": 3.5029,
+          "alphaExact": true,
+          "sha256": "5aa0609c8b53fe9bc377b5457ce0421d47f1a57f9ac6911c77376e5080dbc408"
+        }
+      }
+    },
+    {
+      "id": "dream-bloom",
+      "source": "art-source/vfx/dream-bloom.png",
+      "original": "assets/dream/echo.png",
+      "sourceSha256": "7ff22bfa6bbd1def20b80291b24727de2fc8d0b378bd268e209de7c28e583d4e",
+      "sourceBytes": 2145759,
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "sourceRgbaBytes": 6294152,
+      "frameCount": 8,
+      "durationsMs": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timeline": "floor(cast.age / cast.duration * 8); preview GIF alone uses 100 ms/frame",
+      "variants": {
+        "lossless-png": {
+          "path": "resources/vfx-samples/dream-bloom.lossless-png.png",
+          "bytes": 1979604,
+          "width": 1016,
+          "height": 1792,
+          "rgbaBytes": 7282688,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                6,
+                33,
+                394,
+                387
+              ],
+              "rect": [
+                2,
+                2,
+                394,
+                387
+              ]
+            },
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                0,
+                0,
+                400,
+                420
+              ],
+              "rect": [
+                510,
+                2,
+                400,
+                420
+              ]
+            },
+            {
+              "sourceSize": [
+                435,
+                435
+              ],
+              "trim": [
+                0,
+                3,
+                435,
+                432
+              ],
+              "rect": [
+                2,
+                450,
+                435,
+                432
+              ]
+            },
+            {
+              "sourceSize": [
+                514,
+                443
+              ],
+              "trim": [
+                0,
+                0,
+                504,
+                443
+              ],
+              "rect": [
+                510,
+                450,
+                504,
+                443
+              ]
+            },
+            {
+              "sourceSize": [
+                465,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                465,
+                444
+              ],
+              "rect": [
+                2,
+                898,
+                465,
+                444
+              ]
+            },
+            {
+              "sourceSize": [
+                440,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                440,
+                444
+              ],
+              "rect": [
+                510,
+                898,
+                440,
+                444
+              ]
+            },
+            {
+              "sourceSize": [
+                420,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                420,
+                444
+              ],
+              "rect": [
+                2,
+                1346,
+                420,
+                444
+              ]
+            },
+            {
+              "sourceSize": [
+                424,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                423,
+                444
+              ],
+              "rect": [
+                510,
+                1346,
+                423,
+                444
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "5976560556ebb779d130c3f802a2ad9801bccd76fc2ec2228fb36f4b04b75fbb"
+        },
+        "lossless-webp": {
+          "path": "resources/vfx-samples/dream-bloom.lossless-webp.webp",
+          "bytes": 1682414,
+          "width": 1016,
+          "height": 1792,
+          "rgbaBytes": 7282688,
+          "scale": 1,
+          "frames": [
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                6,
+                33,
+                394,
+                387
+              ],
+              "rect": [
+                2,
+                2,
+                394,
+                387
+              ]
+            },
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                0,
+                0,
+                400,
+                420
+              ],
+              "rect": [
+                510,
+                2,
+                400,
+                420
+              ]
+            },
+            {
+              "sourceSize": [
+                435,
+                435
+              ],
+              "trim": [
+                0,
+                3,
+                435,
+                432
+              ],
+              "rect": [
+                2,
+                450,
+                435,
+                432
+              ]
+            },
+            {
+              "sourceSize": [
+                514,
+                443
+              ],
+              "trim": [
+                0,
+                0,
+                504,
+                443
+              ],
+              "rect": [
+                510,
+                450,
+                504,
+                443
+              ]
+            },
+            {
+              "sourceSize": [
+                465,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                465,
+                444
+              ],
+              "rect": [
+                2,
+                898,
+                465,
+                444
+              ]
+            },
+            {
+              "sourceSize": [
+                440,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                440,
+                444
+              ],
+              "rect": [
+                510,
+                898,
+                440,
+                444
+              ]
+            },
+            {
+              "sourceSize": [
+                420,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                420,
+                444
+              ],
+              "rect": [
+                2,
+                1346,
+                420,
+                444
+              ]
+            },
+            {
+              "sourceSize": [
+                424,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                423,
+                444
+              ],
+              "rect": [
+                510,
+                1346,
+                423,
+                444
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "bfd791fe29f7df484ec4e07e91f05e37a94029d749f76f1e3593a3041eefe50f"
+        },
+        "compact-png": {
+          "path": "resources/vfx-samples/dream-bloom.compact-png.png",
+          "bytes": 565211,
+          "width": 512,
+          "height": 904,
+          "rgbaBytes": 1851392,
+          "scale": 0.5,
+          "frames": [
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                6,
+                33,
+                394,
+                387
+              ],
+              "rect": [
+                2,
+                2,
+                197,
+                194
+              ]
+            },
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                0,
+                0,
+                400,
+                420
+              ],
+              "rect": [
+                258,
+                2,
+                200,
+                210
+              ]
+            },
+            {
+              "sourceSize": [
+                435,
+                435
+              ],
+              "trim": [
+                0,
+                3,
+                435,
+                432
+              ],
+              "rect": [
+                2,
+                228,
+                218,
+                216
+              ]
+            },
+            {
+              "sourceSize": [
+                514,
+                443
+              ],
+              "trim": [
+                0,
+                0,
+                504,
+                443
+              ],
+              "rect": [
+                258,
+                228,
+                252,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                465,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                465,
+                444
+              ],
+              "rect": [
+                2,
+                454,
+                232,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                440,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                440,
+                444
+              ],
+              "rect": [
+                258,
+                454,
+                220,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                420,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                420,
+                444
+              ],
+              "rect": [
+                2,
+                680,
+                210,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                424,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                423,
+                444
+              ],
+              "rect": [
+                258,
+                680,
+                212,
+                222
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "6bd5f69760d0d8aa713840d9691f3c7de676d606ad248cc099281c7754b4307d"
+        },
+        "compact-webp": {
+          "path": "resources/vfx-samples/dream-bloom.compact-webp.webp",
+          "bytes": 484848,
+          "width": 512,
+          "height": 904,
+          "rgbaBytes": 1851392,
+          "scale": 0.5,
+          "frames": [
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                6,
+                33,
+                394,
+                387
+              ],
+              "rect": [
+                2,
+                2,
+                197,
+                194
+              ]
+            },
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                0,
+                0,
+                400,
+                420
+              ],
+              "rect": [
+                258,
+                2,
+                200,
+                210
+              ]
+            },
+            {
+              "sourceSize": [
+                435,
+                435
+              ],
+              "trim": [
+                0,
+                3,
+                435,
+                432
+              ],
+              "rect": [
+                2,
+                228,
+                218,
+                216
+              ]
+            },
+            {
+              "sourceSize": [
+                514,
+                443
+              ],
+              "trim": [
+                0,
+                0,
+                504,
+                443
+              ],
+              "rect": [
+                258,
+                228,
+                252,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                465,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                465,
+                444
+              ],
+              "rect": [
+                2,
+                454,
+                232,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                440,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                440,
+                444
+              ],
+              "rect": [
+                258,
+                454,
+                220,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                420,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                420,
+                444
+              ],
+              "rect": [
+                2,
+                680,
+                210,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                424,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                423,
+                444
+              ],
+              "rect": [
+                258,
+                680,
+                212,
+                222
+              ]
+            }
+          ],
+          "visibleRgbMAE": 0.0,
+          "alphaExact": true,
+          "sha256": "226d85b81f088883b74690ca89c15361e0aee44176c1ac69c278bea05eca0e10"
+        },
+        "compact-webp-q90": {
+          "path": "resources/vfx-samples/dream-bloom.compact-webp-q90.webp",
+          "bytes": 282724,
+          "width": 512,
+          "height": 904,
+          "rgbaBytes": 1851392,
+          "scale": 0.5,
+          "frames": [
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                6,
+                33,
+                394,
+                387
+              ],
+              "rect": [
+                2,
+                2,
+                197,
+                194
+              ]
+            },
+            {
+              "sourceSize": [
+                400,
+                420
+              ],
+              "trim": [
+                0,
+                0,
+                400,
+                420
+              ],
+              "rect": [
+                258,
+                2,
+                200,
+                210
+              ]
+            },
+            {
+              "sourceSize": [
+                435,
+                435
+              ],
+              "trim": [
+                0,
+                3,
+                435,
+                432
+              ],
+              "rect": [
+                2,
+                228,
+                218,
+                216
+              ]
+            },
+            {
+              "sourceSize": [
+                514,
+                443
+              ],
+              "trim": [
+                0,
+                0,
+                504,
+                443
+              ],
+              "rect": [
+                258,
+                228,
+                252,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                465,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                465,
+                444
+              ],
+              "rect": [
+                2,
+                454,
+                232,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                440,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                440,
+                444
+              ],
+              "rect": [
+                258,
+                454,
+                220,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                420,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                420,
+                444
+              ],
+              "rect": [
+                2,
+                680,
+                210,
+                222
+              ]
+            },
+            {
+              "sourceSize": [
+                424,
+                444
+              ],
+              "trim": [
+                0,
+                0,
+                423,
+                444
+              ],
+              "rect": [
+                258,
+                680,
+                212,
+                222
+              ]
+            }
+          ],
+          "visibleRgbMAE": 7.2695,
+          "alphaExact": true,
+          "sha256": "45305f26733408f8af345b440bdc703c65af05aa3f922453610d3d226d49c5b6"
+        }
+      }
+    }
+  ]
+}

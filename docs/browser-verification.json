@@ -1,0 +1,15 @@
+{
+  "environment": "Chromium WebGL2 + browser tt API mock; NOT Douyin IDE or device verification",
+  "results": [
+    "loadSubpackage + all images decoded + menu",
+    "joystick + second-finger dash",
+    "hide/show freezes time and requires manual resume",
+    "upgrade pauses simulation; fresh tap selects the original reward",
+    "portrait pauses; phone landscape buttons stay within canvas",
+    "restart resets state; result persists best score",
+    "subpackage failure can retry successfully",
+    "worker runtime without window/document renders and starts combat",
+    "production bundle boots with test controls stripped"
+  ],
+  "errors": []
+}

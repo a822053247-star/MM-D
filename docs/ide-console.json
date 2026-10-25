@@ -1,0 +1,66 @@
+{
+  "ok": true,
+  "result": [
+    {
+      "column": 0,
+      "level": "warning",
+      "line": 0,
+      "messageText": " 编译警告 es6转换es5会忽略大于500kb的文件，文件路径：game.js",
+      "type": "warning"
+    },
+    {
+      "column": 5973,
+      "level": "info",
+      "line": 1,
+      "messageText": "[TMG] use engine:  helium",
+      "stackTrace": "    at <anonymous> (http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js:1:5973)\n    at <anonymous> (http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js:1:1625635)\n    at 2 (http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js:1:1632943)",
+      "type": "info",
+      "url": "http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js"
+    },
+    {
+      "column": 0,
+      "level": "verbose",
+      "line": 1,
+      "messageText": "Added non-passive event listener to a scroll-blocking 'touchstart' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952",
+      "stackTrace": "    at <anonymous> (blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d:1:210806)\n    at _addCanvasEventHandler (blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d:1:210791)\n    at ve (blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d:1:210188)",
+      "type": "log",
+      "url": "blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d"
+    },
+    {
+      "column": 0,
+      "level": "verbose",
+      "line": 1,
+      "messageText": "Added non-passive event listener to a scroll-blocking 'touchmove' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952",
+      "stackTrace": "    at <anonymous> (blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d:1:210806)\n    at _addCanvasEventHandler (blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d:1:210791)\n    at ve (blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d:1:210188)",
+      "type": "log",
+      "url": "blob:http://127.0.0.1:7044/e8c2f2ff-e10f-4a38-9a90-81f86ba5fb6d"
+    },
+    {
+      "column": 11453,
+      "level": "info",
+      "line": 4243,
+      "messageText": "[mm-ready] {\"ready\":true,\"mode\":\"menu\",\"viewport\":{\"width\":852,\"height\":393.3333435058594},\"safeArea\":{\"left\":0,\"right\":393,\"top\":59,\"bottom\":818,\"width\":393,\"height\":759}}",
+      "stackTrace": "    at T (game.js:4243:11453)",
+      "type": "info",
+      "url": "game.js"
+    },
+    {
+      "column": 12320,
+      "level": "info",
+      "line": 4243,
+      "messageText": "[mm-mode] {\"mode\":\"playing\",\"kind\":\"campaign\",\"elapsed\":0.016666666666666666,\"remaining\":64.98333333333333,\"stage\":1,\"hp\":100,\"kills\":0,\"level\":1,\"enemies\":0,\"offers\":[],\"player\":{\"x\":0,\"z\":0},\"victory\":false,\"dashCooldown\":0,\"coins\":0,\"phase\":\"fighting\",\"failure\":null,\"boss\":\"approach\",\"bossHP\":0,\"ready\":true,\"hidden\":false,\"contextLost\":false,\"loading\":false,\"progress\":100,\"loadError\":\"\",\"viewport\":{\"width\":852,\"height\":393.3333435058594},\"performance\":{\"samples\":300,\"averageFPS\":60,\"p95FrameMs\":16.9,\"drawCalls\":13,\"textures\":8,\"geometries\":23,\"programs\":11}}",
+      "stackTrace": "    at E (game.js:4243:12320)\n    at <anonymous> (http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js:1:349324)\n    at Gt (http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js:1:10700)",
+      "type": "info",
+      "url": "game.js"
+    },
+    {
+      "column": 12505,
+      "level": "info",
+      "line": 4243,
+      "messageText": "[mm-telemetry] {\"mode\":\"playing\",\"kind\":\"campaign\",\"elapsed\":4.999999999999988,\"remaining\":60.000000000000014,\"stage\":1,\"hp\":100,\"kills\":0,\"level\":1,\"enemies\":8,\"offers\":[],\"player\":{\"x\":0,\"z\":0},\"victory\":false,\"dashCooldown\":0,\"coins\":0,\"phase\":\"fighting\",\"failure\":null,\"boss\":\"approach\",\"bossHP\":0,\"ready\":true,\"hidden\":false,\"contextLost\":false,\"loading\":false,\"progress\":100,\"loadError\":\"\",\"viewport\":{\"width\":852,\"height\":393.3333435058594},\"performance\":{\"samples\":300,\"averageFPS\":55.2,\"p95FrameMs\":16.9,\"drawCalls\":17,\"textures\":9,\"geometries\":24,\"programs\":13}}",
+      "stackTrace": "    at E (game.js:4243:12505)\n    at <anonymous> (http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js:1:349324)\n    at Gt (http://127.0.0.1:7044/core/4.33.0.1/tmg-core.js:1:10700)",
+      "type": "info",
+      "url": "game.js"
+    }
+  ]
+}

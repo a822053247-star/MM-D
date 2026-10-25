@@ -1,0 +1,136 @@
+{
+  "source": "E:\\study\\game\\MonsterBonk Mobile",
+  "date": "2026-10-25",
+  "files": {
+    "enemy-directions.ts": "38ea52a0b11acd2ff57322fec323ac276feacc1a88d25017826ad9eee1afb1e9",
+    "creature-animation.ts": "9c3cbd4e44252c7edadc410d6fd27d2912e524b59948950117c139d744c714c2",
+    "party.ts": "a465c9d9f82b8d7958c834f6bc14a9de5e51f6e383eab6af9cd1ad16aa3e0e06",
+    "progression.ts": "7cfa31155284116fafd7ef2f6fd1fa74e60977e9e6b9d3fbe23c34d7832580f5",
+    "relics.ts": "422b6a33377fb9b8878687c9826f8a297b8638720d3f0942f3be2480d3b9c3b2",
+    "weapon-pair-fusion.ts": "6ca4eb1e32d518818a1d49e8ffe49b671fc42ad9f93bbf4060486cb1b2d78a0c",
+    "fusion.ts": "4ba78c084e50c2b85b9edb28958e7d95c06adecb2073cf4b1abed39c92a7e162",
+    "content/weapon-traits.ts": "d6c10361a3592a4b5ae01d305ffe62860a2b2cca84de6c209733a6b8955ef70d",
+    "content/content-types.ts": "425e221bb1dc99fb87652951be2badd6bac3c5b9589e8a1f62810f2ecf1ce951",
+    "colored-barrage.ts": "afe39f5cee01042f86bd25dbd7452fd9c541725a1459c134c5b7a1b792635806",
+    "combat.ts": "d489ae9f0eabae8adb4618bd32cac39b6bfd5b35432d44c82967cb09660f7ed8",
+    "endless-regions.ts": "f67a84f37d675621f1d2bfb8e73775f257c0e3b46b687dd47feb384857a8d7cb",
+    "spatial-index.ts": "6d399579c19b79a02824b86daaae1de4d03115416c7fb833a62fdfe016129e70",
+    "navigation.ts": "2a0f2546f8435cf6eef82ac9948285448cda82a4e0650726420ed4163147cea8",
+    "arena-boundary.ts": "d4eb770eef45030618f240cd7c29fc8b02b57fe9cd6162545f422178e4ab206e",
+    "wave-director.ts": "5e9eb0488d6c4a211c6a51530f752c1a3cc6601f16791f5bb68cbd4a88cd4c99",
+    "trial.ts": "bca3f069b35a72fc411435b1ba91711fc058a798212992950c108d69f38f109c",
+    "special-enemies.ts": "7c32b69700f7a64820556a444c4ce6a3ee232dbfe17fee939f679a6806b7a0d8",
+    "player-feedback.ts": "7ef8b39f70f0c2d9fcb1e496df8c0643677b0c1c307b62efc846c098f39ae828",
+    "grass-blob.ts": "7bdc1752c64553b45214d3d2234421c241b92f37e1ae7cba86acdf96846aeb5a",
+    "enemy-motion.ts": "69f7d220e1fa3fec37d6087c9011ce60741057bacce3ef5302dbb5a8bb025616",
+    "endless-roster.ts": "9a62950228aff4677aaf4923f16b7dd60b80ea67194d80bccca57593c92011be",
+    "balance.ts": "3acfa51b9de63067f69123d686799c4df1514f6573d164bee9b3fb7cd54ed6fe",
+    "run-build.ts": "3bbac35dca9df48354c940b018f45ec6527f5178f8f9fe679e125555f5e347f5",
+    "content/relics/endless-passives.ts": "b332ccc658f7ce41ceb8213575007bea4cc9fe73f7710f5d853d4d8f08fabeba",
+    "flame-sweep.ts": "2e1c3b5e8951d15af9bba778196c9ad8e13ab088ad808754f4bcecf7f5aee893",
+    "blade-weapons.ts": "dcf82b81c0a1a9c2ae8d1e69fd2b8553fdeec274ffbdf72711e556e0012fae9a",
+    "enemy-challenge.ts": "d8582e46af81eb42c416245e606e5517d21e1d15c447f88fba4488e7ab7def01",
+    "endless-boss.ts": "ca38df8dcbc4c6dbc339e3155bde19321cbe28893c3b570138e409c1dc26238e",
+    "boss-barrage.ts": "e6fec6652a75a9aedd31a1fccbce62aeccd374c680bef9bf9321a238b6d189a7",
+    "elite-quake.ts": "4a6d580d27723f0243967724f9abc1745e7340eb1f53ae1e386eed5fce6658bf",
+    "crownthorn-animation.ts": "82bccf63136226a042ec78f0bb86dce2bce9c152b8cbbd24a4493b029ed9fe57",
+    "spawn-layout.ts": "41cee0b09e04f4e2eaaab89cb686ba473efe163e9998e8f0d61147015aefcc06",
+    "sound-design.ts": "b2e7f41b58c7daacb1135c4430a94eb6cbe3975214e34bb796f86286e83a19db",
+    "combat-reactions.ts": "24d9b5482aa18acf7eef68126903ab88048be8c24167bea9320d48764825e2f7",
+    "combat-clarity.ts": "492427176f93bd5015f6ec6700f04ffb4bb802120f1231be6a95839dbc06bc70",
+    "combat-relic-behaviors.ts": "43199d2c5d48f75857f821a3a9510ed353ae88ab1f7bedd56a5092ad83358517",
+    "combat-gigapack-relics.ts": "725b785ae057c1eea27d392ab4297ae22c01e7c67ba11eddf4e5baf4b3a3b6db",
+    "visuals/gigapack-presets.ts": "440f53f0c92209d121ec46ac9000ac8e92dc276c604c08beea84284ec816690d",
+    "visuals/gigapack-clips.ts": "b70ee1c9fc0cd88e72bef9e2c81c2d113a654e0cb9fa257252c1bff3d474af4c",
+    "visuals/vfx-presets.ts": "e1ace3300363047ce4001d52040bffe09cd87ce8860c75d899721a0b84eb13f6",
+    "content/relics/gigapack-relics.ts": "493cb4663831566684c1bd8bd493dc55d8ab74ef3c37786e0d28e4779de542a9",
+    "content/relics/advanced-relics.ts": "832a1776b1b70ab62d543aab4944b7fbe7bb238e8f41512d474a71e4a4483933",
+    "content/relic-registry.ts": "367ab654e6eacf51f23cc9737fe1d535be708db477053e4613346fd0cce0979e",
+    "content/content-validation.ts": "e45d0ab9ff2ba0f9d4b1ff8d7c8360b3400113b2ea6c6ca401315df03323225c",
+    "content/relics/behavior-relics.ts": "7ac313a8c6bd831ee1423fca48fe94761f831852d69c8bb0a4b5d3095d951488",
+    "content/relic-effects.ts": "2fa9a626cb2946402c2df309e127b8ccf88c17c0ec05a4275cb17bbe9062698a",
+    "content/relic-icons.ts": "3adb1494f5e35b5e2cac5b8775a68357d75e56b978941c5a5ba26724ff79b055",
+    "content/relics/tide-prism.ts": "53294549fa56aeb1a58b00ca9abaf554377cf4943704e8ebf004e7582af854a5",
+    "water-evolution.ts": "e9c4cbd21067ceb7bd80eddde8cc7fb6a8d971e2d6c304112a52676bd9dde22e",
+    "position-aoe.ts": "0c6a5b7a878b5411432e3824cf6a23f856681ace225b09d162d34151ea0095c4",
+    "dream-combat.ts": "e465d25c356e66af0a4543556e71ba3135001e99589018fb185e3d5db7cd2974",
+    "ice-skills.ts": "25f0f19611b29e9e9fe9eb2cba6a42d59e249868be74a63af463783f3adc8ae2",
+    "frost-combat.ts": "3eea6c2f977971add55872259c401c79a26e60ef44040b4a74e7a79507f4583e",
+    "thunder-weapon.ts": "f97612e22399b04cb611d4312998312e660210707b809591c8c9008ce0479089",
+    "water-aoe.ts": "3c0ca0287e8b438151ecdda646defd4c50e4165cd52f5bf25c850b5f8ee1b807",
+    "area-attacks.ts": "0ea17d77f772287bdc823b2e7d836ce601d55385ec5bfc1893a3e57454c3b905",
+    "ranged-enemies.ts": "6aaae23b6088b1469d6e10b9581119263c4226e686780e2d2443aee446f19af8",
+    "capture-rules.ts": "7fe92bfc6511be7240039aeb1391aa2b09b134f85f3c055fa76731f4985b3e69",
+    "run-flow.ts": "1b5d654e84c4cd77d52b8ad614eb02e0ad2b0d7404065a007e1b40ed40b4e8da",
+    "shop.ts": "d032133b93e65edd128a34398e4f66de83025d32a7ec3b9722b1308dd978a3e4",
+    "endless-encounters.ts": "350c72b72c8cc46d95259ea8367df169e7d1013a04974388a8f8f8c60f68b963"
+  },
+  "resources": [
+    {
+      "name": "hero-walk.png",
+      "original": "assets/pixel/creatures/animation/yanrong-animation-sheet.normalized.png",
+      "bytes": 1014590,
+      "sha256": "a190f9d51551c74ee8caed6d463f5b689e7dec9e23105af9726dd3235d53f6aa"
+    },
+    {
+      "name": "hero-diagonal.png",
+      "original": "assets/pixel/creatures/animation/yanrong-diagonal-walk.normalized.png",
+      "bytes": 555782,
+      "sha256": "fa38e78ca75135fe21b3a33c4263d4bedaceca6baf5735a5eafa361fa1cfbb22"
+    },
+    {
+      "name": "enemy-normal.png",
+      "original": "assets/pixel/enemies/direction/grass-monster-directions/runtime.normalized.png",
+      "bytes": 231072,
+      "sha256": "1c3a8b7e42c7ce9ea8e60e634a25b300ae67e5af066a107e5d5244f7c785b377"
+    },
+    {
+      "name": "enemy-fast.png",
+      "original": "assets/pixel/enemies/direction/runner-bug-directions/runtime.normalized.png",
+      "bytes": 180900,
+      "sha256": "4a1c640a80dc0014e9ec51b24f15e44ff5837b3bf0b68dda1c1651ab0fe5c874"
+    },
+    {
+      "name": "enemy-tank.png",
+      "original": "assets/pixel/enemies/direction/rock-armor-bug-directions/runtime.normalized.png",
+      "bytes": 241367,
+      "sha256": "4cedd16579d39fa5513712be4d455fe44ccef9b35172a530af9dfcfc397b5e89"
+    },
+    {
+      "name": "menu.png",
+      "original": "assets/ui/menu/forest-yanrong-background.png",
+      "bytes": 2359352,
+      "sha256": "0fec8a8aa217caf6c8e6cfc8a722b22d3f3cc9b3a7e72c61a871c1deb06ab5d0"
+    },
+    {
+      "name": "grassland.ogg",
+      "original": "assets/music/bgm-grassland.ogg",
+      "bytes": 1724097,
+      "sha256": "99607b996cc43c1891afcbf7c2c8d8aad1009266cea358d4753e3c50b1332d36"
+    },
+    {
+      "name": "enemy-crystal.png",
+      "original": "assets/pixel/enemies/direction/draft-crystal-swarm-directions/runtime.normalized.png",
+      "bytes": 231571,
+      "sha256": "230eb4d81134fe3b89f8e2cc4e0451f812b39f86bf0bb7d81081c6b66ca63145"
+    },
+    {
+      "name": "enemy-spore.png",
+      "original": "assets/pixel/enemies/direction/draft-spore-bomber-directions/runtime.normalized.png",
+      "bytes": 238964,
+      "sha256": "0da1db3e13217d9a97b5a45109d684d97bc1a6fa4111d37df787b49e691c29ff"
+    },
+    {
+      "name": "enemy-treasure.png",
+      "original": "assets/pixel/enemies/direction/draft-treasure-runner-directions/runtime.normalized.png",
+      "bytes": 254766,
+      "sha256": "fae7ea7fd9833b4bebcb7cd96dcbcec3aee086f299bc2fa23bb2a79680a2f53b"
+    },
+    {
+      "name": "boss-idle.png",
+      "original": "assets/pixel/boss/Crownthorn/runtime/idle.png",
+      "bytes": 383784,
+      "sha256": "5a2e06a44c62996a231a6a070e7f762e006d351f3ace76a4bce6ab8e9c5b4dab"
+    }
+  ]
+}

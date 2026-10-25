@@ -1,0 +1,8 @@
+{
+  "maxAtlasBytes": 100000,
+  "targetFrameEdge": 192,
+  "paletteColors": 64,
+  "dither": false,
+  "preserveFrameCount": true,
+  "scope": "Selected runtime VFX atlas PNGs; source art and comparison candidates are excluded"
+}

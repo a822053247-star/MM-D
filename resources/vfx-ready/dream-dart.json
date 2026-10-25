@@ -1,0 +1,130 @@
+{
+  "id": "dream-dart",
+  "path": "resources/vfx-ready/dream-dart.png",
+  "source": "art-source/vfx/dream-dart.png",
+  "original": "assets/dream/dart.png",
+  "sourceSha256": "b282922ddcbbcde1ed87401a326c9797b3fa6c8fe863cbc640884397eddce2e5",
+  "sha256": "7fcaf254170f820e75134153b609e5e3ce38121aa91ea3d2d9bc36b44c4a494a",
+  "sourceBytes": 1284155,
+  "bytes": 20914,
+  "width": 392,
+  "height": 326,
+  "rgbaBytes": 511168,
+  "frames": [
+    {
+      "rect": [
+        2,
+        2,
+        181,
+        135
+      ],
+      "sourceSize": [
+        590,
+        440
+      ],
+      "trim": [
+        0,
+        0,
+        590,
+        440
+      ]
+    },
+    {
+      "rect": [
+        198,
+        2,
+        190,
+        156
+      ],
+      "sourceSize": [
+        620,
+        510
+      ],
+      "trim": [
+        0,
+        0,
+        620,
+        510
+      ]
+    },
+    {
+      "rect": [
+        2,
+        165,
+        192,
+        159
+      ],
+      "sourceSize": [
+        627,
+        520
+      ],
+      "trim": [
+        0,
+        0,
+        627,
+        520
+      ]
+    },
+    {
+      "rect": [
+        198,
+        165,
+        187,
+        129
+      ],
+      "sourceSize": [
+        610,
+        420
+      ],
+      "trim": [
+        0,
+        0,
+        610,
+        420
+      ]
+    }
+  ],
+  "frameCount": 4,
+  "durationsMs": [
+    80,
+    80,
+    80,
+    80
+  ],
+  "timeline": "projectile age frame loop; original authored UV windows",
+  "scale": 0.3062200956937799,
+  "maxFrameEdge": 192,
+  "paletteLimit": 64,
+  "actualPaletteEntries": 64,
+  "alphaQuantizationStep": 32,
+  "dither": false,
+  "shipped": true,
+  "status": "Runtime atlas",
+  "candidates": [
+    {
+      "edge": 192,
+      "colors": 64,
+      "bytes": 20914
+    },
+    {
+      "edge": 128,
+      "colors": 64,
+      "bytes": 11008
+    },
+    {
+      "edge": 128,
+      "colors": 32,
+      "bytes": 7128
+    },
+    {
+      "edge": 96,
+      "colors": 64,
+      "bytes": 7051
+    },
+    {
+      "edge": 96,
+      "colors": 32,
+      "bytes": 4927
+    }
+  ]
+}

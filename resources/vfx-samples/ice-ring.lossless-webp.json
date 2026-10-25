@@ -1,0 +1,121 @@
+{
+  "path": "resources/vfx-samples/ice-ring.lossless-webp.webp",
+  "bytes": 1594174,
+  "width": 1548,
+  "height": 1032,
+  "rgbaBytes": 6390144,
+  "scale": 1,
+  "frames": [
+    {
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "rect": [
+        2,
+        2,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        9,
+        512,
+        503
+      ],
+      "rect": [
+        518,
+        2,
+        512,
+        503
+      ]
+    },
+    {
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        498,
+        512
+      ],
+      "rect": [
+        1034,
+        2,
+        498,
+        512
+      ]
+    },
+    {
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "rect": [
+        2,
+        518,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "rect": [
+        518,
+        518,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trim": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "rect": [
+        1034,
+        518,
+        512,
+        512
+      ]
+    }
+  ],
+  "visibleRgbMAE": 0.0,
+  "alphaExact": true,
+  "sha256": "020c5e891dbf2f3334f9e40db9e13c88f1eaaca92ba52dac409fd5250b14e2f7"
+}

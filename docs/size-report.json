@@ -1,0 +1,87 @@
+{
+  "root": "dist",
+  "unit": "MiB (1048576 bytes)",
+  "mainBytes": 909981,
+  "firstPlayBytes": 8351565,
+  "packages": {
+    "first-play/": 7441584
+  },
+  "files": [
+    {
+      "path": "first-play/boss-idle.png",
+      "bytes": 383784
+    },
+    {
+      "path": "first-play/enemy-crystal.png",
+      "bytes": 231571
+    },
+    {
+      "path": "first-play/enemy-fast.png",
+      "bytes": 180900
+    },
+    {
+      "path": "first-play/enemy-normal.png",
+      "bytes": 231072
+    },
+    {
+      "path": "first-play/enemy-spore.png",
+      "bytes": 238964
+    },
+    {
+      "path": "first-play/enemy-tank.png",
+      "bytes": 241367
+    },
+    {
+      "path": "first-play/enemy-treasure.png",
+      "bytes": 254766
+    },
+    {
+      "path": "first-play/game.js",
+      "bytes": 53
+    },
+    {
+      "path": "first-play/grassland.ogg",
+      "bytes": 1724097
+    },
+    {
+      "path": "first-play/hero-diagonal.png",
+      "bytes": 555782
+    },
+    {
+      "path": "first-play/hero-walk.png",
+      "bytes": 1014590
+    },
+    {
+      "path": "first-play/menu.png",
+      "bytes": 2359352
+    },
+    {
+      "path": "first-play/vfx/flame-sweep.png",
+      "bytes": 25286
+    },
+    {
+      "path": "game.js",
+      "bytes": 908501
+    },
+    {
+      "path": "game.json",
+      "bytes": 198
+    },
+    {
+      "path": "project.config.json",
+      "bytes": 201
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES.txt",
+      "bytes": 1081
+    }
+  ],
+  "mainMiB": 0.868,
+  "firstPlayMiB": 7.965,
+  "limits": {
+    "mainBytes": 3145728,
+    "firstPlayBytes": 10485760
+  },
+  "passed": true,
+  "note": "Uncompressed local output, including configs and licenses. First-play includes main + first-play subpackage; not a network compression or IDE-reported size."
+}

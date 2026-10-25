@@ -1,0 +1,206 @@
+{
+  "id": "dream-bloom",
+  "path": "resources/vfx-ready/dream-bloom.png",
+  "source": "art-source/vfx/dream-bloom.png",
+  "original": "assets/dream/echo.png",
+  "sourceSha256": "7ff22bfa6bbd1def20b80291b24727de2fc8d0b378bd268e209de7c28e583d4e",
+  "sha256": "598c221d24d91eff4c4d607c3efbc4cbd83e343f01b96ab85b1fb5778f90be8f",
+  "sourceBytes": 2145759,
+  "bytes": 53277,
+  "width": 392,
+  "height": 680,
+  "rgbaBytes": 1066240,
+  "frames": [
+    {
+      "rect": [
+        2,
+        2,
+        149,
+        157
+      ],
+      "sourceSize": [
+        400,
+        420
+      ],
+      "trim": [
+        0,
+        0,
+        400,
+        420
+      ]
+    },
+    {
+      "rect": [
+        198,
+        2,
+        149,
+        157
+      ],
+      "sourceSize": [
+        400,
+        420
+      ],
+      "trim": [
+        0,
+        0,
+        400,
+        420
+      ]
+    },
+    {
+      "rect": [
+        2,
+        172,
+        162,
+        162
+      ],
+      "sourceSize": [
+        435,
+        435
+      ],
+      "trim": [
+        0,
+        0,
+        435,
+        435
+      ]
+    },
+    {
+      "rect": [
+        198,
+        172,
+        192,
+        165
+      ],
+      "sourceSize": [
+        514,
+        443
+      ],
+      "trim": [
+        0,
+        0,
+        514,
+        443
+      ]
+    },
+    {
+      "rect": [
+        2,
+        342,
+        174,
+        166
+      ],
+      "sourceSize": [
+        465,
+        444
+      ],
+      "trim": [
+        0,
+        0,
+        465,
+        444
+      ]
+    },
+    {
+      "rect": [
+        198,
+        342,
+        164,
+        166
+      ],
+      "sourceSize": [
+        440,
+        444
+      ],
+      "trim": [
+        0,
+        0,
+        440,
+        444
+      ]
+    },
+    {
+      "rect": [
+        2,
+        512,
+        157,
+        166
+      ],
+      "sourceSize": [
+        420,
+        444
+      ],
+      "trim": [
+        0,
+        0,
+        420,
+        444
+      ]
+    },
+    {
+      "rect": [
+        198,
+        512,
+        158,
+        166
+      ],
+      "sourceSize": [
+        424,
+        444
+      ],
+      "trim": [
+        0,
+        0,
+        424,
+        444
+      ]
+    }
+  ],
+  "frameCount": 8,
+  "durationsMs": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "timeline": "floor(cast.age / cast.duration * 8); preview GIF alone uses 100 ms/frame",
+  "scale": 0.3735408560311284,
+  "maxFrameEdge": 192,
+  "paletteLimit": 64,
+  "actualPaletteEntries": 64,
+  "alphaQuantizationStep": 32,
+  "dither": false,
+  "shipped": true,
+  "status": "Runtime atlas",
+  "candidates": [
+    {
+      "edge": 192,
+      "colors": 64,
+      "bytes": 53277
+    },
+    {
+      "edge": 128,
+      "colors": 64,
+      "bytes": 27634
+    },
+    {
+      "edge": 128,
+      "colors": 32,
+      "bytes": 19116
+    },
+    {
+      "edge": 96,
+      "colors": 64,
+      "bytes": 17429
+    },
+    {
+      "edge": 96,
+      "colors": 32,
+      "bytes": 12988
+    }
+  ]
+}

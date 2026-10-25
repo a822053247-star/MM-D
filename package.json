@@ -1,0 +1,27 @@
+{
+  "name": "monsterbonk-douyin",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && node scripts/build.mjs",
+    "check:size": "node scripts/check-size.mjs",
+    "check:campaign": "node scripts/check-campaign.mjs",
+    "assets:vfx": "python scripts/compress-vfx.py",
+    "assets:pixel-vfx": "python scripts/pixel-vfx.py",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser-smoke.mjs",
+    "preview": "node scripts/build.mjs --test && node scripts/preview.mjs",
+    "verify": "npm run build",
+    "prepare:release": "node scripts/prepare-release.mjs"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/three": "0.186.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  }
+}
